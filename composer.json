@@ -1,0 +1,21 @@
+{
+  "name": "docmvc/docmvc",
+  "type": "library",
+  "description": "DocMVC, MVC-library for generating files (excel, doc, pdf)",
+  "keywords": ["excel","doc","files","pdf", "download"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Viktor Eltyshev"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0",
+    "dompdf/dompdf": "v0.8.2",
+    "phpoffice/phpspreadsheet": "1.5.2",
+    "phpoffice/phpword": "0.15.0"
+  },
+  "classmap": [
+    "src/"
+  ]
+}
