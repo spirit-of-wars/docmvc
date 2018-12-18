@@ -2,10 +2,9 @@
 
 namespace DocMVC\Src;
 
-use \PHPOffice\PHPWord\PhpWord;
-use \PHPOffice\PHPWord\TemplateProcessor;
-//use \Lib_PHPWord_Template;
-use \PhpOffice\PhpWord\IOFactory;
+use \Exception;
+use \PhpOffice\PhpWord\PhpWord;
+use \PhpOffice\PhpWord\TemplateProcessor;
 
 
 abstract class Doc extends BaseDoc
@@ -36,7 +35,11 @@ abstract class Doc extends BaseDoc
         $this->render();
         $this->tmpName = $this->getBasicTemplatePath() . uniqid() . '.' .$this->getfileExt();
         $this->saveDoc($this->tmpName);
-        $this->content = file_get_contents($this->tmpName);
+        if(file_exists($this->tmpName)) {
+            $this->content = file_get_contents($this->tmpName);
+        } else {
+            throw new Exception('Failed creation file: ' . $this->tmpName );
+        }
 
     }
 
@@ -51,12 +54,10 @@ abstract class Doc extends BaseDoc
     protected function saveDoc($savePath)
     {
         if(!$this->getTemplatePath()) {
-            $objWriter = IOFactory::createWriter($this->driver, 'Word2007');
-            $objWriter->save($savePath);
-        } else {
             $this->driver->save($savePath);
+        } else {
+            $this->driver->saveAs($savePath);
         }
-
     }
 
     protected function DLHeaders()
