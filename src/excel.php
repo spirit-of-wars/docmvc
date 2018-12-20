@@ -1,38 +1,75 @@
 <?php
 
 namespace DocMVC\Src;
+
+use \Exception;
 use \PhpOffice\PhpSpreadsheet\Spreadsheet;
 use \PhpOffice\PhpSpreadsheet\IOFactory;
-//use \PHPExcel_Writer_Excel2007;
 
 abstract class Excel extends BaseDoc
 {
+    /**
+     * Extension types
+     *
+     * @const string
+     */
     const TYPE_XLS = 'xls';
     const TYPE_XLSX = 'xlsx';
 
     const Xlsx = 'Xlsx';
 
-    public function __construct(array $params)
-    {
-        parent::__construct($params);
-    }
+    /**
+     * Object to work with file
+     *
+     * @var Spreadsheet
+     */
+    protected $driver;
 
+    /**
+     * Build file.
+     * Create driver object and render content.
+     *
+     * @throws Exception
+     */
     protected function buildDoc()
     {
-        $this->driver = $this->getObjExcel();
+        $this->driver = $this->createDriver();
         $this->render();
     }
 
+    /**
+     * Get allowed extensions
+     *
+     * @return array
+     */
     protected function allowedExt()
     {
         return [self::TYPE_XLS, self::TYPE_XLSX];
     }
 
-    protected function setFileExt()
+    /**
+     * Implement abstract method from parent class.
+     * Specify the file extension.
+     * Can be redefined in child class.
+     * Must match one of the values in method allowedExt.
+     *
+     * @return string
+     */
+    protected function setupFileExt()
     {
         return self::TYPE_XLSX;
     }
 
+    /**
+     * Get reader object
+     *
+     * @param string $tmp The fully qualified template filename
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
+     * @throws Exception
+     *
+     * @return Spreadsheet
+     */
     protected function getReader($tmp)
     {
         $reader = IOFactory::createReader(self::Xlsx);
@@ -40,20 +77,37 @@ abstract class Excel extends BaseDoc
         return $reader->load($tmp);
     }
 
+    /**
+     * Get writer object
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws Exception
+     *
+     * @return \PhpOffice\PhpSpreadsheet\Writer\IWriter
+     */
     protected function getWriter()
     {
         return IOFactory::createWriter($this->driver, self::Xlsx);
     }
 
-    protected function getObjExcel()
+    /**
+     * Create driver object for work with file
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
+     *
+     * @return Spreadsheet
+     */
+    protected function createDriver()
     {
         if($tmp = $this->getTemplatePath()) {
             return IOFactory::load($tmp);
         }
         return new Spreadsheet();
-
     }
 
+    /**
+     * Generate headers for download file
+     */
     protected function DLHeaders()
     {
         $fileName = $this->generateFileName();
@@ -63,6 +117,12 @@ abstract class Excel extends BaseDoc
         header('Cache-Control: cache, must-revalidate');
         header('Pragma: public');
     }
+
+    /**
+     * Echo file content
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     */
     protected function DL()
     {
         $this->getWriter()->save('php://output');
