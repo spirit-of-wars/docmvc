@@ -18,6 +18,13 @@ abstract class Doc extends BaseDoc
     const TYPE_DOCX = 'docx';
 
     /**
+     * Object to work with file
+     *
+     * @var TemplateProcessor|PhpWord
+     */
+    protected $driver;
+
+    /**
      * Default file extension
      *
      * @var string
