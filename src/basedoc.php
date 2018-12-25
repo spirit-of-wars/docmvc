@@ -14,13 +14,6 @@ abstract class BaseDoc
     private $fileExt;
 
     /**
-     * File name for download
-     *
-     * @var string
-     */
-    protected $fileNameForUser;
-
-    /**
      * @var string Temporary document filename (with path)
      */
     protected $tmpName;
@@ -37,7 +30,14 @@ abstract class BaseDoc
      *
      * @var array
      */
-    protected $params;
+    protected $params = array();
+
+    /**
+     * Optional user data for use between methods
+     *
+     * @var array
+     */
+    protected $chosenParams = array();
 
     /**
      * Data array for use in view
@@ -196,6 +196,43 @@ abstract class BaseDoc
     }
 
     /**
+     * Copy file to new folder from property saveFilePath
+     */
+    protected function copyFile($newFilePath)
+    {
+        if(file_exists($this->tmpName) && file_exists($newFilePath)) {
+            copy($this->tmpName, $newFilePath . $this->fileExt);
+            unlink($this->tmpName);
+        }
+    }
+
+    /**
+     * Enable save file on server after work
+     *
+     * @param string $savePath
+     *
+     * @return self
+     */
+    public function saveOn()
+    {
+        $this->isSaveFile = true;
+
+        return $this;
+    }
+
+    /**
+     * Disable save file on server after work
+     *
+     * @return self
+     */
+    public function saveOff()
+    {
+        $this->isSaveFile = false;
+
+        return $this;
+    }
+
+    /**
      * Download file (generate headers then echo file content)
      */
     public function download()
@@ -247,6 +284,16 @@ abstract class BaseDoc
         return $this->getCurrPath() . '/template/';
     }
 
+    /**
+     * Setup document name without extension
+     *
+     * These method can be implemented in child class
+     *
+     * @return string
+     */
+    protected function setupDocName() {
+        return (string) time();
+    }
     /**
      * These methods must be implemented in child class
      */
@@ -334,15 +381,14 @@ abstract class BaseDoc
     }
 
     /**
-     * Generate file name with extension for download
-     * If prop fileNameForUser is empty, name is set as time()
+     * Generate document name with extension for download
      *
      * @return string
      */
     protected function generateFileName()
     {
-        $fileNameForUser = $this->fileNameForUser ?: time();
-        return $fileNameForUser . '.' . $this->fileExt;
+        $docName = $this->setupDocName() ?: time();
+        return $docName . '.' . $this->fileExt;
     }
 
     /**

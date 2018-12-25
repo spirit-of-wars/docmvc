@@ -65,7 +65,6 @@ abstract class Doc extends BaseDoc
         $this->driver = $this->createDriver();
         $this->render();
         $this->tmpName = $this->getCurrPath() . uniqid() . '.' .$this->getfileExt();
-
         $this->saveDoc($this->tmpName);
         if(file_exists($this->tmpName)) {
             $this->content = file_get_contents($this->tmpName);
