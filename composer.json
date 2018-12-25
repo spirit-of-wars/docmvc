@@ -1,9 +1,9 @@
 {
-  "name": "docmvc/docmvc",
+  "name": "spirit-of-wars/docmvc",
   "type": "library",
   "description": "DocMVC, MVC-library for generating files (excel, doc, pdf)",
   "keywords": ["excel","doc","files","pdf", "download"],
-  "license": "MIT",
+  "license": "LGPL-3.0-or-later",
   "authors": [
     {
       "name": "Viktor Eltyshev"
