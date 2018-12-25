@@ -45,3 +45,87 @@
  если не указано иначе. Для сохранения документа на сервере вызовите метод saveOn()
  - В папке /sample/ лежат примеры работы с документами
  - Если нужно пробрасывать данные из метода в метод, можно использовать свойство $this->chosenParams
+ 
+ 
+ Пример кода:
+ Генерируем docx документ для скачивания.
+ 
+ ```php
+ <?php
+ 
+ // файл класса doc.php, лежит в директории document/test/doc.php
+ 
+ use \DocMVC\src\Doc as PDoc;
+ 
+ class Doc extends PDoc
+ {
+ 
+     public function setupTemplate()
+     {
+         return null;
+     }
+ 
+     public function setupView()
+     {
+         return 'doc/view.php';
+     }
+ 
+     public function setupModel()
+     {
+         $test = $this->params['test']; // required param
+         $randParam = $this->params['test2'];
+         return [
+             'test' => $test,
+             'randParam' => $randParam
+         ];
+     }
+ 
+     public function setupRequiredParams()
+     {
+         return ['test'];
+     }
+ 
+     public function setupDocName()
+     {
+         return 'test-name';
+     }
+ }
+ // конец файла
+ 
+ 
+ // вью-файл view.php лежит в директории document/test/view/view.php
+ 
+ $PHPWord = $driver;
+ $data = $model;
+ 
+ $PHPWord->addFontStyle('nStyle', array('size'=>10,'name'=>'Arial CYR'));
+ $PHPWord->addParagraphStyle('pRight', array('align'=>'right','spaceAfter'=>0));
+ $PHPWord->addParagraphStyle('pRightT', array('align'=>'right','spaceBefore'=>400,'spaceAfter'=>0));
+ $PHPWord->addParagraphStyle('pRightB', array('align'=>'right','spaceAfter'=>400,'spaceAfter'=>0));
+ $PHPWord->addParagraphStyle('pCenter', array('align'=>'center','spaceAfter'=>0));
+ $PHPWord->addParagraphStyle('pLeft', array('align'=>'left','spaceAfter'=>0));
+ $PHPWord->addParagraphStyle('pLeftT', array('align'=>'left','spaceBefore'=>400,'spaceAfter'=>0));
+ 
+ $PHPWord->setDefaultFontName('Arial CYR');
+ $PHPWord->setDefaultFontSize(10);
+ 
+ 
+ $section = $PHPWord->createSection(array('marginLeft'=>1100, 'marginRight'=>1100, 'marginTop'=>1100, 'marginBottom'=>1100));
+ $section->addText('Test text', 'nStyle', 'pRight');
+ $section->addText('Test text №2', 'nStyle', 'pRight');
+ 
+ $textrun = $section->createTextRun('pRight');
+ $textrun->addText($data['test']);
+ $textrun->addText($data['randParam']);
+ 
+ //конец файла
+ 
+ 
+ // создаем экземпляр класса, передаем параметры и скачиваем файл
+ 
+ $testDoc = new Doc([
+     'test' => 'test content',
+     'randParam' => 'random param'
+ ]);
+ 
+ $testDoc->download();
