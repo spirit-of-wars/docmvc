@@ -83,6 +83,8 @@ abstract class BaseDoc
      */
     public function __construct(array $params = [])
     {
+        $this->setErrorHandler();
+
         try {
             $this->initFileExt();
             $this->initParams($params);
@@ -405,5 +407,20 @@ abstract class BaseDoc
         }
         $this->fileExt = $fileExt;
 
+    }
+
+    /**
+     * Set error handler
+     * Stop generate file, if founded warning, notice or error
+     *
+     * @throws \Exception
+     */
+    private function setErrorHandler()
+    {
+        set_error_handler(function ($err_severity, $err_msg, $err_file, $err_line) {
+            $errMessage = 'DocMVC Error! Generate document is aborted. ';
+            $errMessage .= 'Error message: "' . $err_msg . '" in "' . $err_file . '": ' . $err_line;
+            throw new Exception($errMessage);
+        });
     }
 }
