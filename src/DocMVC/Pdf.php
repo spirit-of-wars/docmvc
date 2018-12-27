@@ -1,11 +1,11 @@
 <?php
 
-namespace DocMVC\Src;
+namespace DocMVC;
 
 use Exception;
 use \Dompdf\Dompdf;
 
-abstract class PDF extends BaseDoc
+abstract class Pdf extends BaseDoc
 {
     /**
      * Extension type

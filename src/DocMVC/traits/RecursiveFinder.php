@@ -1,6 +1,6 @@
 <?php
 
-namespace DocMVC\Src\traits;
+namespace DocMVC\traits;
 
 trait RecursiveFinder
 {

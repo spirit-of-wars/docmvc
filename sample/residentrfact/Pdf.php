@@ -1,7 +1,7 @@
 <?php
 namespace DocMVC\sample\residentrfact;
 
-use \DocMVC\src\PDF as PPdf;
+use \DocMVC\PDF as PPdf;
 
 class PDF extends PPdf
 {

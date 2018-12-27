@@ -2,7 +2,7 @@
 
 namespace DocMVC\sample\test;
 
-use \DocMVC\src\Doc as PDoc;
+use \DocMVC\Doc as PDoc;
 
 class Doc extends PDoc
 {

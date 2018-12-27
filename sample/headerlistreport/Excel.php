@@ -1,7 +1,7 @@
 <?php
 namespace DocMVC\sample\headerlistreport;
 
-use \DocMVC\src\Excel as PExcel;
+use \DocMVC\Excel as PExcel;
 
 class Excel extends PExcel
 {

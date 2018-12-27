@@ -18,5 +18,10 @@
   },
   "classmap": [
     "src/"
-  ]
+  ],
+  "autoload": {
+    "psr-4": {
+      "DocMVC\\": "src/DocMVC"
+    }
+  }
 }

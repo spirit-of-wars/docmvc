@@ -1,6 +1,6 @@
 <?php
 
-namespace DocMVC\Src;
+namespace DocMVC;
 
 use \Exception;
 use \PhpOffice\PhpWord\PhpWord;
