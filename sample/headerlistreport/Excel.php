@@ -1,17 +1,16 @@
 <?php
 namespace DocMVC\sample\headerlistreport;
 
-use \DocMVC\Excel as PExcel;
+use DocMVC\Cartridge\ExcelCartridge;
 
-class Excel extends PExcel
+class Excel extends ExcelCartridge
 {
     const FORMAT_MONEY = 'money';
 
     protected $viewName = 'excel/view.php';
 
-    protected function setupModel()
+    public function setupModel(): array
     {
-
         return [
             'headersData' => $this->getHeadersData(),
             'datePeriod' => '01-02-2018',
@@ -19,22 +18,12 @@ class Excel extends PExcel
         ];
     }
 
-    protected function setupRequiredParams()
-    {
-        return [];
-    }
-
-    protected function setupView()
+    public function setupView(): string
     {
         return $this->viewName;
     }
 
-    protected function setupTemplate()
-    {
-        return null;
-    }
-
-    protected function getHeadersData()
+    private function getHeadersData()
     {
         $data = [
             [

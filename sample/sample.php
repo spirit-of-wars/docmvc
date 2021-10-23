@@ -1,19 +1,24 @@
 <?php
 
-namespace docMVC\sample;
+namespace DocMVC\sample;
 
-$testDoc = new test\Doc([
+
+require_once 'vendor/autoload.php';
+
+$testDoc = new \DocMVC\sample\test\Doc([
     'test' => 'test content',
     'randParam' => 'random param'
 ]);
 
-$testDoc->download();
+$fileManager = new \DocMVC\FileManager\FileManager($testDoc);
+
+$fileManager->build()->download();
+
+$excelReport = new \DocMVC\sample\residentrfact\Excel();
+
+$fileManager->load($excelReport)->build()->download();
 
 
-$excelReport = new headerlistreport\excel();
+$pdfReport = new \DocMVC\sample\residentrfact\Pdf();
 
-$excelReport->download();
-
-$pdfAct = new residentrfact\PDF();
-
-$pdfAct->download();
+$fileManager->load($pdfReport)->build()->download();

@@ -8,16 +8,16 @@ trait RecursiveFinder
     {
         $key = $keyArr[$idx];
 
-        if(!isset($arr[$key])) {
+        if (!isset($arr[$key])) {
             return $notFoundCallback();
         }
 
-        if(!is_array($arr[$key])) {
+        if (!is_array($arr[$key])) {
             return $arr[$key];
         }
 
         $idx++;
-        if(!isset($keyArr[$idx])) {
+        if (!isset($keyArr[$idx])) {
             return $notFoundCallback();
         }
 

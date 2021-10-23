@@ -11,10 +11,11 @@
     }
   ],
   "require": {
-    "php": ">=5.4.0",
-    "dompdf/dompdf": "v0.8.2",
-    "phpoffice/phpspreadsheet": "1.5.2",
-    "phpoffice/phpword": "0.15.0"
+    "php": "^7.2 || ^8.0",
+    "dompdf/dompdf": "v1.0.2",
+    "phpoffice/phpspreadsheet": "1.18.0",
+    "phpoffice/phpword": "0.18.2",
+    "symfony/messenger": "*"
   },
   "classmap": [
     "src/"
