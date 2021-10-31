@@ -28,7 +28,7 @@ abstract class AbstractCartridge implements SetupCartridgeInterface
         return [];
     }
 
-    public function setupFileExt()
+    public function setupDocumentExt()
     {
         return null;
     }
@@ -38,7 +38,7 @@ abstract class AbstractCartridge implements SetupCartridgeInterface
         return [];
     }
 
-    public function setupDocName()
+    public function setupDocumentName()
     {
         return null;
     }

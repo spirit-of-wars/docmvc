@@ -10,7 +10,7 @@ $testDoc = new \DocMVC\sample\test\Doc([
     'randParam' => 'random param'
 ]);
 
-$fileManager = new \DocMVC\FileManager\FileManager($testDoc);
+$fileManager = new \DocMVC\DocumentManager\DocumentManager($testDoc);
 
 $fileManager->build()->download();
 

@@ -2,11 +2,11 @@
 
 namespace DocMVC\Assembly;
 
-use DocMVC\Exception\Assembly\AssemblyFile\BuildFileException;
-use DocMVC\Exception\Assembly\AssemblyFile\DownloadFileException;
+use DocMVC\Exception\Assembly\AssemblyDocument\BuildDocumentException;
+use DocMVC\Exception\Assembly\AssemblyDocument\DownloadDocumentException;
 use \Dompdf\Dompdf;
 
-class PdfAssembly extends AbstractFileAssembly
+class PdfAssembly extends AbstractDocumentAssembly
 {
 
     /**
@@ -17,7 +17,7 @@ class PdfAssembly extends AbstractFileAssembly
     public const TYPE_PDF = 'pdf';
 
     /**
-     * Object to work with file
+     * Object to work with document
      *
      * @var Dompdf
      */
@@ -42,39 +42,39 @@ class PdfAssembly extends AbstractFileAssembly
     }
 
     /**
-     * Build file.
+     * Build document.
      * Create driver object, render content.
      *
-     * @throws BuildFileException
+     * @throws BuildDocumentException
      */
-    public function buildFile(): void
+    public function buildDocument(): void
     {
         try {
             $this->driver->setPaper('A4', 'portrait');
-            $content = $this->fileRenderer->render($this->getDriver(), $this->getFileInfo()->getModel(), $this->getFileInfo()->getViewPath(), $this->getFileInfo()->getParams());
+            $content = $this->documentRenderer->renderFromView($this->getDriver(), $this->getDocumentInfo()->getModel(), $this->getDocumentInfo()->getViewPath(), $this->getDocumentInfo()->getParams());
             $this->driver->loadHtml($content);
             $this->driver->render();
             $content = $this->driver->output();
             $this->saveToTmpDocument($content);
         } catch (\Throwable $e) {
-            throw new BuildFileException($e->getMessage(), $e->getCode(), $e);
+            throw new BuildDocumentException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
     /**
      * Streams the PDF to the client.
      *
-     * @throws DownloadFileException
+     * @throws DownloadDocumentException
      */
     public function download(): void
     {
         try {
-            $this->driver->stream($this->getFileInfo()->getFileName(), [
+            $this->driver->stream($this->getDocumentInfo()->getDocumentName(), [
                 'Attachment' => true,
                 'compression' => true
             ]);
         } catch (\Throwable $e) {
-            throw new DownloadFileException($e->getMessage(), $e->getCode(), $e);
+            throw new DownloadDocumentException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -88,6 +88,6 @@ class PdfAssembly extends AbstractFileAssembly
 
     private function saveToTmpDocument($content)
     {
-        file_put_contents($this->getFileInfo()->getTmpFilePath(), $content);
+        file_put_contents($this->getDocumentInfo()->getTmpDocumentPath(), $content);
     }
 }

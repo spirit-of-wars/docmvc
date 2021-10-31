@@ -4,10 +4,10 @@ namespace DocMVC\Assembly\DriverAdapter;
 
 use PhpOffice\PhpWord\PhpWord;
 
-class PHPWordAdapter extends PhpWord implements SaveFileAdapterInterface
+class PHPWordAdapter extends PhpWord implements SaveDocumentAdapterInterface
 {
-    public function saveFile($filePath): void
+    public function saveDocument($documentPath): void
     {
-        $this->save($filePath);
+        $this->save($documentPath);
     }
 }

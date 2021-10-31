@@ -3,13 +3,13 @@
 namespace DocMVC\Assembly;
 
 use DocMVC\Assembly\DriverAdapter\PHPWordAdapter;
-use DocMVC\Assembly\DriverAdapter\SaveFileAdapterInterface;
+use DocMVC\Assembly\DriverAdapter\SaveDocumentAdapterInterface;
 use DocMVC\Assembly\DriverAdapter\TemplateProcessorAdapter;
-use DocMVC\Exception\Assembly\AssemblyFile\BuildFileException;
-use DocMVC\Exception\Assembly\AssemblyFile\CreateDriverException;
+use DocMVC\Exception\Assembly\AssemblyDocument\BuildDocumentException;
+use DocMVC\Exception\Assembly\AssemblyDocument\CreateDriverException;
 
 
-class DocAssembly extends AbstractFileAssembly
+class DocAssembly extends AbstractDocumentAssembly
 {
     /**
      * Extension types
@@ -20,9 +20,9 @@ class DocAssembly extends AbstractFileAssembly
     public const TYPE_DOCX = 'docx';
 
     /**
-     * Object to work with file
+     * Object to work with document
      *
-     * @var SaveFileAdapterInterface
+     * @var SaveDocumentAdapterInterface
      */
     protected $driver;
 
@@ -45,19 +45,19 @@ class DocAssembly extends AbstractFileAssembly
     }
 
     /**
-     * Build file.
-     * Create driver object, render content and save file.
+     * Build document.
+     * Create driver object, render content and save document.
      *
-     * @throws BuildFileException
+     * @throws BuildDocumentException
      */
-    public function buildFile(): void
+    public function buildDocument(): void
     {
         try {
-            $this->fileRenderer->render($this->getDriver(), $this->getFileInfo()->getModel(), $this->getFileInfo()->getViewPath(), $this->getFileInfo()->getParams());
-            $this->saveDoc($this->getFileInfo()->getTmpFilePath());
-            $this->initContentFromFile($this->getFileInfo()->getTmpFilePath());
+            $this->documentRenderer->renderFromView($this->getDriver(), $this->getDocumentInfo()->getModel(), $this->getDocumentInfo()->getViewPath(), $this->getDocumentInfo()->getParams());
+            $this->saveDoc($this->getDocumentInfo()->getTmpDocumentPath());
+            $this->initContentFromFile($this->getDocumentInfo()->getTmpDocumentPath());
         } catch (\Throwable $e) {
-            throw new BuildFileException($e->getMessage(), $e->getCode(), $e);
+            throw new BuildDocumentException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -68,47 +68,47 @@ class DocAssembly extends AbstractFileAssembly
     }
 
     /**
-     * Create driver object for work with file
+     * Create driver object for work with document
      *
-     * @throws CreateDriverException
+     * @return SaveDocumentAdapterInterface
+     *@throws CreateDriverException
      *
-     * @return SaveFileAdapterInterface
      */
     protected function createDriver(): object
     {
         try {
-            if (!$this->getFileInfo()->getTemplatePath()) {
+            if (!$this->getDocumentInfo()->getTemplatePath()) {
                 return new PHPWordAdapter();
             }
 
-            return new TemplateProcessorAdapter($this->getFileInfo()->getTemplatePath());
+            return new TemplateProcessorAdapter($this->getDocumentInfo()->getTemplatePath());
         } catch (\Throwable $e) {
             throw new CreateDriverException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
     /**
-     * Save file to path
+     * Save document to path
      *
      * @throws \Throwable
      */
     protected function saveDoc($savePath): void
     {
-        $this->driver->saveFile($savePath);
+        $this->driver->saveDocument($savePath);
     }
 
     /**
-     * Generate headers for download file
+     * Generate headers for download document
      */
     protected function DLHeaders(): void
     {
-        $fileName = $this->getFileInfo()->getFileName();
+        $documentName = $this->getDocumentInfo()->getDocumentName();
         header("Content-type: application/vnd.openxmlformats-officedocument.wordprocessingml.document");
-        header(sprintf('Content-Disposition: attachment; filename="%s"', $fileName));
+        header(sprintf('Content-Disposition: attachment; filename="%s"', $documentName));
     }
 
     /**
-     * Echo file content
+     * Echo document content
      */
     protected function DL(): void
     {

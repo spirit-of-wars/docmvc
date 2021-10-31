@@ -4,10 +4,10 @@ namespace DocMVC\Assembly\DriverAdapter;
 
 use PhpOffice\PhpWord\TemplateProcessor;
 
-class TemplateProcessorAdapter extends TemplateProcessor implements SaveFileAdapterInterface
+class TemplateProcessorAdapter extends TemplateProcessor implements SaveDocumentAdapterInterface
 {
-    public function saveFile($filePath): void
+    public function saveDocument($documentPath): void
     {
-        $this->saveAs($filePath);
+        $this->saveAs($documentPath);
     }
 }

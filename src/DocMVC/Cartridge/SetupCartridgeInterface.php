@@ -10,12 +10,12 @@ interface SetupCartridgeInterface extends CartridgeInterface
     public function setupModel();
 
     /**
-     * Specify the file extension.
+     * Specify the document extension.
      * Must match one of the values in method allowedExt from related assembly class.
      *
      * @return string|null
      */
-    public function setupFileExt();
+    public function setupDocumentExt();
 
     /**
      * @return array
@@ -32,6 +32,6 @@ interface SetupCartridgeInterface extends CartridgeInterface
      *
      * @return string|null
      */
-    public function setupDocName();
+    public function setupDocumentName();
 
 }
