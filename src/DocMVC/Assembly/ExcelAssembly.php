@@ -7,23 +7,21 @@ use DocMVC\Exception\Assembly\AssemblyFile\BuildFileException;
 use DocMVC\Exception\Assembly\AssemblyFile\CreateDriverException;
 use DocMVC\Exception\Assembly\AssemblyFile\DownloadFileException;
 use DocMVC\Exception\RenderException;
-use DocMVC\traits\RenderTrait;
 use \PhpOffice\PhpSpreadsheet\Spreadsheet;
 use \PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Writer\IWriter;
 
 class ExcelAssembly extends AbstractFileAssembly
 {
-    use RenderTrait;
     /**
      * Extension types
      *
      * @const string
      */
-    const TYPE_XLS = 'xls';
-    const TYPE_XLSX = 'xlsx';
+    public const TYPE_XLS = 'xls';
+    public const TYPE_XLSX = 'xlsx';
 
-    const Xlsx = 'Xlsx';
+    private const Xlsx = 'Xlsx';
 
     /**
      * Object to work with file
@@ -59,46 +57,18 @@ class ExcelAssembly extends AbstractFileAssembly
     public function buildFile(): void
     {
         try {
-            $this->render($this->getDriver(), $this->getFileInfo()->getModel(), $this->getFileInfo()->getViewPath(), $this->getFileInfo()->getParams());
+            $this->fileRenderer->render($this->getDriver(), $this->getFileInfo()->getModel(), $this->getFileInfo()->getViewPath(), $this->getFileInfo()->getParams());
+            $this->getWriter()->save($this->getFileInfo()->getTmpFilePath());
+            $this->initContentFromFile($this->getFileInfo()->getTmpFilePath());
         } catch (RenderException $e) {
             throw new BuildFileException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
-    /**
-     * Get reader object
-     *
-     * @param string $tmp The fully qualified template filename
-     *
-     * @throws AssemblyFileException
-     *
-     * @return Spreadsheet
-     */
-    protected function getReader($tmp): Spreadsheet
+    public function download(): void
     {
-        try {
-            $reader = IOFactory::createReader(self::Xlsx);
-
-            return $reader->load($tmp);
-        } catch (\Throwable $e) {
-            throw new AssemblyFileException($e->getMessage(), $e->getCode(), $e);
-        }
-    }
-
-    /**
-     * Get writer object
-     *
-     * @throws AssemblyFileException
-     *
-     * @return \PhpOffice\PhpSpreadsheet\Writer\IWriter
-     */
-    protected function getWriter(): IWriter
-    {
-        try {
-            return IOFactory::createWriter($this->driver, self::Xlsx);
-        } catch (\Throwable $e) {
-            throw new AssemblyFileException($e->getMessage(), $e->getCode(), $e);
-        }
+        $this->DLHeaders();
+        $this->DL();
     }
 
     /**
@@ -141,16 +111,47 @@ class ExcelAssembly extends AbstractFileAssembly
      */
     protected function DL(): void
     {
+        echo $this->getContent();
+//        try {
+//            $this->getWriter()->save('php://output');
+//        } catch (\Throwable $e) {
+//            throw new DownloadFileException($e->getMessage(), $e->getCode(), $e);
+//        }
+    }
+
+    /**
+     * Get reader object
+     *
+     * @param string $tmp The fully qualified template filename
+     *
+     * @throws AssemblyFileException
+     *
+     * @return Spreadsheet
+     */
+    private function getReader($tmp): Spreadsheet
+    {
         try {
-            $this->getWriter()->save('php://output');
+            $reader = IOFactory::createReader(self::Xlsx);
+
+            return $reader->load($tmp);
         } catch (\Throwable $e) {
-            throw new DownloadFileException($e->getMessage(), $e->getCode(), $e);
+            throw new AssemblyFileException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
-    public function download(): void
+    /**
+     * Get writer object
+     *
+     * @throws AssemblyFileException
+     *
+     * @return \PhpOffice\PhpSpreadsheet\Writer\IWriter
+     */
+    private function getWriter(): IWriter
     {
-        $this->DLHeaders();
-        $this->DL();
+        try {
+            return IOFactory::createWriter($this->driver, self::Xlsx);
+        } catch (\Throwable $e) {
+            throw new AssemblyFileException($e->getMessage(), $e->getCode(), $e);
+        }
     }
 }

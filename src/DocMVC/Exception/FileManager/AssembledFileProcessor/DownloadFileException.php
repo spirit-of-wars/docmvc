@@ -4,7 +4,6 @@ namespace DocMVC\Exception\FileManager\AssembledFileProcessor;
 
 use DocMVC\Exception\RuntimeException;
 
-class DownloadFileException extends RuntimeException implements AssembledFileProcessorInterface
+class DownloadFileException extends RuntimeException implements AssembledFileProcessorExceptionInterface
 {
-
 }

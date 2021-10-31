@@ -21,6 +21,6 @@ interface FileAssemblyInterface
 
     //@todo вот это безобразие тут явно надо выносить куда-то как-то
     public function getTmpFilePath(): string;
-    public function getFileExt(): string;
+    public function getFileName(): string;
 
 }

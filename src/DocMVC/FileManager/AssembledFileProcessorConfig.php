@@ -5,27 +5,27 @@ namespace DocMVC\FileManager;
 class AssembledFileProcessorConfig
 {
     /**
-     * Is save file (true) or remove, after destruct class (false)
+     * allows rewrite existed file for save operations
      *
      * @var boolean
      */
-    private $isSaveFile = false;
+    private $rewritableMode = false;
 
     /**
      * @return bool
      */
-    public function getIsSaveFile(): bool
+    public function getRewritableMode(): bool
     {
-        return $this->isSaveFile;
+        return $this->rewritableMode;
     }
 
     /**
-     * @param bool $isSaveFile
+     * @param bool $rewritableMode
      * @return $this
      */
-    public function setIsSaveFile(bool $isSaveFile): self
+    public function setRewritableMode(bool $rewritableMode): self
     {
-        $this->isSaveFile = $isSaveFile;
+        $this->rewritableMode = $rewritableMode;
 
         return $this;
     }

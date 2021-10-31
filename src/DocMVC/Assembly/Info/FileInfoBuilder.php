@@ -17,6 +17,9 @@ use \DocMVC\Exception\Assembly\AssemblyFileFactory\AssemblyCreateException;
 
 class FileInfoBuilder implements FileInfoBuilderInterface
 {
+    private const DEFAULT_VIEW_FOLDER_NAME = 'view';
+    private const DEFAULT_TEMPLATE_FOLDER_NAME = 'template';
+
     /**
      * @var SetupCartridgeInterface
      */
@@ -26,6 +29,11 @@ class FileInfoBuilder implements FileInfoBuilderInterface
      * @var FileInfo
      */
     private $fileInfo;
+
+    /**
+     * @var string
+     */
+    private $fileFolderPath;
 
     /**
      * @param SetupCartridgeInterface $cartridge
@@ -56,7 +64,7 @@ class FileInfoBuilder implements FileInfoBuilderInterface
         $assemblyClassName = AssemblyFileFactory::getAssemblyFileClassByCartridge($this->cartridge);
         $fileExt = $this->cartridge->setupFileExt() ?: $assemblyClassName::defaultExt();
         if (!in_array($fileExt, $assemblyClassName::allowedExt())) {
-            throw new InitExtException('File Extension ' . $fileExt . 'is not allowed');
+            throw new InitExtException(sprintf("File Extension '%s' is not allowed", $fileExt));
         }
 
         $this->fileInfo->setFileExt($fileExt);
@@ -73,14 +81,14 @@ class FileInfoBuilder implements FileInfoBuilderInterface
 
         $model = $this->cartridge->setupModel();
         if (!$model) {
-            throw new InitModelException('Model data is not found');
+            throw new InitModelException('Model data was not founded');
         }
 
         $this->fileInfo->setModel($model);
 
         $viewPath = $this->cartridge->setupView() ? $this->getViewFolderPath() . $this->cartridge->setupView() : null;
         if ($viewPath && !file_exists($viewPath)) {
-            throw new InitViewException('View file is not found: ' . $viewPath);
+            throw new InitViewException(sprintf("View file was not founded: '%s'", $viewPath));
         }
 
         $this->fileInfo->setViewPath($viewPath);
@@ -88,7 +96,7 @@ class FileInfoBuilder implements FileInfoBuilderInterface
         if ($this->cartridge instanceof SetupTemplateInterface) {
             $templatePath = $this->cartridge->setupTemplate() ? $this->getTemplateFolderPath() . $this->cartridge->setupTemplate() : null;
             if ($templatePath && !file_exists($templatePath)) {
-                throw new InitTemplateException('Template file is not found: ' . $templatePath);
+                throw new InitTemplateException(sprintf("Template file was not founded: '%s'", $templatePath));
             }
 
             $this->fileInfo->setTemplatePath($templatePath);
@@ -98,7 +106,7 @@ class FileInfoBuilder implements FileInfoBuilderInterface
 
     public function initTmpFilePath(): void
     {
-        $tmpFilePath = $this->getFileFolderPath() . uniqid() . '.' . $this->fileInfo->getFileExt();
+        $tmpFilePath = realpath(sys_get_temp_dir()) . DIRECTORY_SEPARATOR . uniqid() . '.' . $this->fileInfo->getFileExt();
 
         $this->fileInfo->setTmpFilePath($tmpFilePath);
     }
@@ -119,7 +127,7 @@ class FileInfoBuilder implements FileInfoBuilderInterface
      */
     private function getViewFolderPath(): string
     {
-        return $this->getFileFolderPath() . '/view/';
+        return $this->getFileFolderPath() . DIRECTORY_SEPARATOR .  self::DEFAULT_VIEW_FOLDER_NAME . DIRECTORY_SEPARATOR;
     }
 
     /**
@@ -131,7 +139,7 @@ class FileInfoBuilder implements FileInfoBuilderInterface
      */
     private function getTemplateFolderPath(): string
     {
-        return $this->getFileFolderPath() . '/template/';
+        return $this->getFileFolderPath() . DIRECTORY_SEPARATOR .  self::DEFAULT_TEMPLATE_FOLDER_NAME . DIRECTORY_SEPARATOR;
     }
 
     /**
@@ -143,24 +151,24 @@ class FileInfoBuilder implements FileInfoBuilderInterface
      */
     private function getFileFolderPath(): string
     {
-        try {
-            $class_info = new \ReflectionClass($this->cartridge);
-            $fileName = preg_replace('/\\\\/','/',$class_info->getFileName());
-            $fileNameArr = explode('/',$fileName);
-            array_pop($fileNameArr);
-            $currPath = implode('/',$fileNameArr);
-        } catch (\Throwable $e) {
-            new FolderPathException($e->getMessage(), $e->getCode());
+        if (!$this->fileFolderPath) {
+            try {
+                $class_info = new \ReflectionClass($this->cartridge);
+                $fileName = realpath($class_info->getFileName());
+                $this->fileFolderPath = dirname($fileName);
+            } catch (\Throwable $e) {
+                new FolderPathException($e->getMessage(), $e->getCode(), $e);
+            }
         }
 
-        return $currPath;
+        return $this->fileFolderPath;
     }
 
     /**
-     * @param $fileExt
+     * @param string $fileExt
      * @return string
      */
-    private function generateFileName($fileExt): string
+    private function generateFileName(string $fileExt): string
     {
         $docName = $this->cartridge->setupDocName() ?: time();
 
@@ -168,18 +176,18 @@ class FileInfoBuilder implements FileInfoBuilderInterface
     }
 
     /**
-     * Init params
      * Check params to equal in cartridge method setupRequiredParams
+     * @param array $params
      * @return bool
      *
      * @throws InitParamsException
      */
-    private function validateParams($params): bool
+    private function validateParams(array $params): bool
     {
         $requiredParams = $this->cartridge->setupRequiredParams();
         foreach ($requiredParams as $paramName) {
             if (!array_key_exists($paramName, $params)) {
-                throw new InitParamsException('Required params "' . $paramName . '" is not set');
+                throw new InitParamsException(sprintf("Required params '%s' weren't passed", $paramName));
             }
         }
 

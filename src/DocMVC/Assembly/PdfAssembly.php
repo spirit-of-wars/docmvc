@@ -4,19 +4,17 @@ namespace DocMVC\Assembly;
 
 use DocMVC\Exception\Assembly\AssemblyFile\BuildFileException;
 use DocMVC\Exception\Assembly\AssemblyFile\DownloadFileException;
-use DocMVC\traits\RenderTrait;
 use \Dompdf\Dompdf;
 
 class PdfAssembly extends AbstractFileAssembly
 {
-    use RenderTrait;
 
     /**
      * Extension type
      *
      * @const string
      */
-    const TYPE_PDF = 'pdf';
+    public const TYPE_PDF = 'pdf';
 
     /**
      * Object to work with file
@@ -53,9 +51,11 @@ class PdfAssembly extends AbstractFileAssembly
     {
         try {
             $this->driver->setPaper('A4', 'portrait');
-            $content = $this->render($this->getDriver(), $this->getFileInfo()->getModel(), $this->getFileInfo()->getViewPath(), $this->getFileInfo()->getParams());
+            $content = $this->fileRenderer->render($this->getDriver(), $this->getFileInfo()->getModel(), $this->getFileInfo()->getViewPath(), $this->getFileInfo()->getParams());
             $this->driver->loadHtml($content);
             $this->driver->render();
+            $content = $this->driver->output();
+            $this->saveToTmpDocument($content);
         } catch (\Throwable $e) {
             throw new BuildFileException($e->getMessage(), $e->getCode(), $e);
         }
@@ -84,5 +84,10 @@ class PdfAssembly extends AbstractFileAssembly
     protected function createDriver(): object
     {
         return new DOMPDF();
+    }
+
+    private function saveToTmpDocument($content)
+    {
+        file_put_contents($this->getFileInfo()->getTmpFilePath(), $content);
     }
 }

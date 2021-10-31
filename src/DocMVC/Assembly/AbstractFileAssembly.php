@@ -3,6 +3,7 @@
 namespace DocMVC\Assembly;
 
 use DocMVC\Assembly\Info\FileInfo;
+use DocMVC\Exception\Assembly\AssemblyFile\BuildFileException;
 use DocMVC\Exception\Assembly\AssemblyFile\CreateDriverException;
 use DocMVC\Exception\DocMVCException;
 
@@ -17,13 +18,6 @@ abstract class AbstractFileAssembly
     protected $driver;
 
     /**
-     * Optional user data for use between methods
-     *
-     * @var array
-     */
-    protected $chosenParams = array();
-
-    /**
      * Document content
      *
      * @var string
@@ -36,6 +30,11 @@ abstract class AbstractFileAssembly
     protected $fileInfo;
 
     /**
+     * @var FileRenderer
+     */
+    protected $fileRenderer;
+
+    /**
      * Prepare file for next working
      *
      * @param array
@@ -46,6 +45,7 @@ abstract class AbstractFileAssembly
     {
         $this->setErrorHandler();
         $this->fileInfo = $fileInfo;
+        $this->fileRenderer = new FileRenderer();
 
         try {
             $this->driver = $this->createDriver();
@@ -107,11 +107,33 @@ abstract class AbstractFileAssembly
     /**
      * @return string
      */
-    public function getFileExt(): string
+    public function getFileName(): string
     {
-        return $this->getFileInfo()->getFileExt();
+        return $this->getFileInfo()->getFileName();
     }
 
+    /**
+     * @return object
+     */
+    protected abstract function createDriver(): object ;
+
+    /**
+     * @param string $filePath
+     *
+     * @throws BuildFileException
+     */
+    protected function initContentFromFile(string $filePath): void
+    {
+        if (!file_exists($filePath)) {
+            throw new BuildFileException(sprintf("Content file is not existed: '%s'", $filePath));
+        }
+        $fileContent = file_get_contents($filePath);
+        if ($fileContent === false) {
+            throw new BuildFileException(sprintf("Can't get content from file: '%s'", $filePath));
+        }
+
+        $this->setContent($fileContent);
+    }
     /**
      * Set error handler
      * Stop generate file, if founded warning, notice or error
@@ -122,14 +144,8 @@ abstract class AbstractFileAssembly
     {
         set_error_handler(function ($err_severity, $err_msg, $err_file, $err_line) {
             $errMessage = 'DocMVC Error! Generate document is aborted. ';
-            $errMessage .= 'Error message: "' . $err_msg . '" in "' . $err_file . '": ' . $err_line;
+            $errMessage .= sprintf("Error message: '%s' from file '%s' line '%s'", $err_msg, $err_file, $err_line);
             throw new DocMVCException($errMessage);
         });
     }
-
-    /**
-     * @return object
-     */
-    protected abstract function createDriver(): object ;
-
 }

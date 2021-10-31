@@ -1,19 +1,11 @@
 <?php
 
-namespace DocMVC\traits;
+namespace DocMVC\Assembly;
 
 use DocMVC\Exception\RenderException;
 
-trait RenderTrait
+class FileRenderer
 {
-    /**
-     * Render file content from view file
-     *
-     * @throws RenderException
-     *
-     * @return string
-     */
-
     /**
      * Render file content from view file
      *
@@ -25,7 +17,7 @@ trait RenderTrait
      * @return false|string
      * @throws RenderException
      */
-    protected function render($driver, $model, $viewPath, array $params = [])
+    public function render($driver, $model, $viewPath, array $params = []): ?string
     {
         $arr = [
             'model' => $model,
@@ -40,7 +32,7 @@ trait RenderTrait
             echo $viewPath;
         } catch (\Exception $e) {
             ob_end_clean();
-            throw new RenderException($e->getMessage());
+            throw new RenderException($e->getMessage(), $e->getCode(), $e);
         }
 
         return ob_get_clean();

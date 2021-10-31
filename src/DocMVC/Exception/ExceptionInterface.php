@@ -2,7 +2,7 @@
 
 namespace DocMVC\Exception;
 /**
- * Base Message component's exception.
+ * Base DocMVC component's exception.
  *
  */
 interface ExceptionInterface extends \Throwable

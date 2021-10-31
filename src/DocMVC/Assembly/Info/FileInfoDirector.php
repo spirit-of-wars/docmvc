@@ -14,9 +14,9 @@ class FileInfoDirector
      */
     public function buildFileInfo(FileInfoBuilderInterface $fileInfoBuilder): FileInfoBuilderInterface
     {
+        $fileInfoBuilder->init();
         $fileInfoBuilder->initParams();
         $fileInfoBuilder->initFileExt();
-        $fileInfoBuilder->init();
         $fileInfoBuilder->initTmpFilePath();
 
         return $fileInfoBuilder;

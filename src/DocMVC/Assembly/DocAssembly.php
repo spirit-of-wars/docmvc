@@ -7,19 +7,17 @@ use DocMVC\Assembly\DriverAdapter\SaveFileAdapterInterface;
 use DocMVC\Assembly\DriverAdapter\TemplateProcessorAdapter;
 use DocMVC\Exception\Assembly\AssemblyFile\BuildFileException;
 use DocMVC\Exception\Assembly\AssemblyFile\CreateDriverException;
-use DocMVC\traits\RenderTrait;
 
 
 class DocAssembly extends AbstractFileAssembly
 {
-    use RenderTrait;
     /**
      * Extension types
      *
      * @const string
      */
-    const TYPE_DOC = 'doc';
-    const TYPE_DOCX = 'docx';
+    public const TYPE_DOC = 'doc';
+    public const TYPE_DOCX = 'docx';
 
     /**
      * Object to work with file
@@ -55,12 +53,18 @@ class DocAssembly extends AbstractFileAssembly
     public function buildFile(): void
     {
         try {
-            $this->render($this->getDriver(), $this->getFileInfo()->getModel(), $this->getFileInfo()->getViewPath(), $this->getFileInfo()->getParams());
+            $this->fileRenderer->render($this->getDriver(), $this->getFileInfo()->getModel(), $this->getFileInfo()->getViewPath(), $this->getFileInfo()->getParams());
             $this->saveDoc($this->getFileInfo()->getTmpFilePath());
             $this->initContentFromFile($this->getFileInfo()->getTmpFilePath());
         } catch (\Throwable $e) {
             throw new BuildFileException($e->getMessage(), $e->getCode(), $e);
         }
+    }
+
+    public function download(): void
+    {
+        $this->DLHeaders();
+        $this->DL();
     }
 
     /**
@@ -109,25 +113,5 @@ class DocAssembly extends AbstractFileAssembly
     protected function DL(): void
     {
         echo $this->getContent();
-    }
-
-    /**
-     * @param string $filePath
-     *
-     * @throws BuildFileException
-     */
-    private function initContentFromFile(string $filePath): void
-    {
-        if (file_exists($filePath)) {
-            $this->setContent(file_get_contents($filePath));
-        } else {
-            throw new BuildFileException('Failed creation file: ' . $filePath);
-        }
-    }
-
-    public function download(): void
-    {
-        $this->DLHeaders();
-        $this->DL();
     }
 }

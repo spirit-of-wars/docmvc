@@ -51,7 +51,7 @@ class AssemblyFileFactory
             }
         }
 
-        throw new AssemblyCreateException("No assembly found for cartridge " . get_class($cartridge));
+        throw new AssemblyCreateException(sprintf("No assembly found for cartridge '%s'", get_class($cartridge)));
     }
 
     /**

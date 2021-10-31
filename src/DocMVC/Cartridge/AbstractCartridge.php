@@ -6,6 +6,13 @@ abstract class AbstractCartridge implements SetupCartridgeInterface
 {
     protected $params = [];
 
+    /**
+     * Optional user data for use between methods
+     *
+     * @var array
+     */
+    protected $commonData = array();
+
     public function __construct(array $params = [])
     {
         $this->params = $params;

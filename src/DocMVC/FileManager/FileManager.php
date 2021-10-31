@@ -6,8 +6,9 @@ use DocMVC\Assembly\AssemblyFileFactory;
 use DocMVC\Cartridge\SetupCartridgeInterface;
 use DocMVC\Exception\Assembly\AssemblyFileFactory\AssemblyFileFactoryExceptionInterface;
 use DocMVC\Exception\DocMVCException;
-use DocMVC\Exception\FileManager\AssembledFileProcessor\AssembledFileProcessorInterface;
-use \Exception;
+use DocMVC\Exception\FileManager\AssembledFileProcessor\AssembledFileProcessorExceptionInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
 class FileManager
 {
@@ -22,10 +23,16 @@ class FileManager
     private $processorConfig;
 
     /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * @param SetupCartridgeInterface $cartridge
      */
-    public function __construct(SetupCartridgeInterface $cartridge)
+    public function __construct(SetupCartridgeInterface $cartridge, LoggerInterface $logger = null)
     {
+        $this->logger = $logger ?: new NullLogger();
         $this->load($cartridge);
     }
 
@@ -42,40 +49,41 @@ class FileManager
 
     /**
      * @return AssembledFileProcessor
-     * @throws Exception
+     * @throws DocMVCException
      */
     public function build(): AssembledFileProcessor
     {
         try {
             $fileAssembly = AssemblyFileFactory::createAssemblyFileByCartridge($this->currentCartridge);
 
-            return new AssembledFileProcessor($fileAssembly, $this->processorConfig);
-        } catch (AssemblyFileFactoryExceptionInterface|AssembledFileProcessorInterface $e) {
+            return new AssembledFileProcessor($fileAssembly, $this->processorConfig, $this->logger);
+        } catch (AssemblyFileFactoryExceptionInterface|AssembledFileProcessorExceptionInterface $e) {
+            $this->logger->error('DocMVC document build error', ['error' => $e->getMessage(), 'exception' => $e]);
             throw new DocMVCException($e->getMessage(), $e->getCode(), $e);
         }
     }
     /**
-     * Enable save file on server after work
+     * Enable rewrite existed file for save operations
      *
      * @param string $savePath
      *
      * @return self
      */
-    public function saveOn(): self
+    public function rewritableModeOn(): self
     {
-        $this->processorConfig->setIsSaveFile(true);
+        $this->processorConfig->setRewritableMode(true);
 
         return $this;
     }
 
     /**
-     * Disable save file on server after work
+     * Disable rewrite existed file for save operations
      *
      * @return self
      */
-    public function saveOff(): self
+    public function rewritableModeOff(): self
     {
-        $this->processorConfig->setIsSaveFile(false);
+        $this->processorConfig->setRewritableMode(false);
 
         return $this;
     }
