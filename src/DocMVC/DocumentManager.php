@@ -1,9 +1,11 @@
 <?php
 
-namespace DocMVC\DocumentManager;
+namespace DocMVC;
 
-use DocMVC\Assembly\AssemblyDocumentFactory;
+use DocMVC\Assembly\DocumentAssemblyFactory;
 use DocMVC\Cartridge\SetupCartridgeInterface;
+use DocMVC\DocumentManager\AssembledDocumentProcessor;
+use DocMVC\DocumentManager\AssembledDocumentProcessorConfig;
 use DocMVC\Exception\Assembly\AssemblyDocumentFactory\AssemblyDocumentFactoryExceptionInterface;
 use DocMVC\Exception\DocMVCException;
 use DocMVC\Exception\DocumentManager\AssembledDocumentProcessor\AssembledDocumentProcessorExceptionInterface;
@@ -54,9 +56,10 @@ class DocumentManager
     public function build(): AssembledDocumentProcessor
     {
         try {
-            $documentAssembly = AssemblyDocumentFactory::createAssemblyDocumentByCartridge($this->currentCartridge);
+            $documentAssembly = DocumentAssemblyFactory::createAssemblyDocumentByCartridge($this->currentCartridge);
+            $documentAssemblyResult = $documentAssembly->buildDocument();
 
-            return new AssembledDocumentProcessor($documentAssembly, $this->processorConfig, $this->logger);
+            return new AssembledDocumentProcessor($documentAssemblyResult, $this->processorConfig, $this->logger);
         } catch (AssemblyDocumentFactoryExceptionInterface|AssembledDocumentProcessorExceptionInterface $e) {
             $this->logger->error('DocMVC document build error', ['error' => $e->getMessage(), 'exception' => $e]);
             throw new DocMVCException($e->getMessage(), $e->getCode(), $e);

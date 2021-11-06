@@ -9,7 +9,7 @@ class DocumentRenderer
     /**
      * Render document content from view file
      *
-     * @param $driver
+     * @param object $driver
      * @param $model
      * @param string $viewPath
      * @param array $params
@@ -17,7 +17,7 @@ class DocumentRenderer
      * @return false|string
      * @throws RenderException
      */
-    public function renderFromView($driver, $model, $viewPath, array $params = []): ?string
+    public function renderFromView(object $driver, $model, string $viewPath, array $params = []): ?string
     {
         $arr = [
             'model' => $model,

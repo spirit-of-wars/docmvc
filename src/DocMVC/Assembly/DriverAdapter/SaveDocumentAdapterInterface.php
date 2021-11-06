@@ -4,5 +4,8 @@ namespace DocMVC\Assembly\DriverAdapter;
 
 interface SaveDocumentAdapterInterface
 {
-    public function saveDocument($documentPath): void;
+    /**
+     * @param string $documentPath
+     */
+    public function saveDocument(string $documentPath): void;
 }

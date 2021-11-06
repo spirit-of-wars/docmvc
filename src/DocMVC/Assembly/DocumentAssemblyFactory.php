@@ -14,7 +14,7 @@ use DocMVC\Exception\Assembly\AssemblyDocumentFactory\AssemblyDocumentFactoryExc
 use DocMVC\Exception\Assembly\AssemblyDocumentFactory\DocumentInfoCreateException;
 use DocMVC\Exception\Assembly\DocumentInfoBuilder\DocumentInfoBuilderExceptionInterface;
 
-class AssemblyDocumentFactory
+class DocumentAssemblyFactory
 {
 
     private const ASSEMBLIES = [
@@ -25,8 +25,8 @@ class AssemblyDocumentFactory
 
     /**
      * @param SetupCartridgeInterface $cartridge
-     * @return DocumentAssemblyInterface
      *
+     * @return DocumentAssemblyInterface
      * @throws AssemblyDocumentFactoryExceptionInterface
      */
     public static function createAssemblyDocumentByCartridge(SetupCartridgeInterface $cartridge): DocumentAssemblyInterface
@@ -39,8 +39,8 @@ class AssemblyDocumentFactory
 
     /**
      * @param SetupCartridgeInterface $cartridge
-     * @return string
      *
+     * @return string
      * @throws AssemblyDocumentCreateException
      */
     public static function getAssemblyDocumentClassByCartridge(SetupCartridgeInterface $cartridge): string
@@ -56,8 +56,8 @@ class AssemblyDocumentFactory
 
     /**
      * @param SetupCartridgeInterface $cartridge
-     * @return Info\DocumentInfo
      *
+     * @return Info\DocumentInfo
      * @throws DocumentInfoCreateException
      */
     private static function createDocumentInfo(SetupCartridgeInterface $cartridge): DocumentInfo

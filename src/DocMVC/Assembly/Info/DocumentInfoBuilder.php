@@ -2,7 +2,7 @@
 
 namespace DocMVC\Assembly\Info;
 
-use DocMVC\Assembly\AssemblyDocumentFactory;
+use DocMVC\Assembly\DocumentAssemblyFactory;
 use DocMVC\Assembly\AbstractDocumentAssembly;
 use DocMVC\Cartridge\SetupCartridgeInterface;
 use DocMVC\Cartridge\SetupTemplateInterface;
@@ -33,7 +33,7 @@ class DocumentInfoBuilder implements DocumentInfoBuilderInterface
     /**
      * @var string
      */
-    private $documentFolderPath;
+    private $userCartridgeFolderPath;
 
     /**
      * @param SetupCartridgeInterface $cartridge
@@ -61,7 +61,7 @@ class DocumentInfoBuilder implements DocumentInfoBuilderInterface
     public function initDocumentExt(): void
     {
         /** @var AbstractDocumentAssembly $assemblyClassName */
-        $assemblyClassName = AssemblyDocumentFactory::getAssemblyDocumentClassByCartridge($this->cartridge);
+        $assemblyClassName = DocumentAssemblyFactory::getAssemblyDocumentClassByCartridge($this->cartridge);
         $documentExt = $this->cartridge->setupDocumentExt() ?: $assemblyClassName::defaultExt();
         if (!in_array($documentExt, $assemblyClassName::allowedExt())) {
             throw new InitExtException(sprintf("Document extension '%s' is not allowed", $documentExt));
@@ -104,6 +104,9 @@ class DocumentInfoBuilder implements DocumentInfoBuilderInterface
 
     }
 
+    /**
+     * Init temp document path
+     */
     public function initTmpDocumentPath(): void
     {
         $tmpDocumentPath = realpath(sys_get_temp_dir()) . DIRECTORY_SEPARATOR . uniqid() . '.' . $this->documentInfo->getDocumentExt();
@@ -111,6 +114,9 @@ class DocumentInfoBuilder implements DocumentInfoBuilderInterface
         $this->documentInfo->setTmpDocumentPath($tmpDocumentPath);
     }
 
+    /**
+     * Validate and init user params
+     */
     public function initParams(): void
     {
         if ($this->validateParams($this->cartridge->getParams())) {
@@ -121,51 +127,49 @@ class DocumentInfoBuilder implements DocumentInfoBuilderInterface
     /**
      * Get full path to class instance view folder
      *
-     * @throws FolderPathException
-     *
      * @return string
+     * @throws FolderPathException
      */
     private function getViewFolderPath(): string
     {
-        return $this->getDocumentFolderPath() . DIRECTORY_SEPARATOR .  self::DEFAULT_VIEW_FOLDER_NAME . DIRECTORY_SEPARATOR;
+        return $this->getUserCartridgeFolderPath() . DIRECTORY_SEPARATOR .  self::DEFAULT_VIEW_FOLDER_NAME . DIRECTORY_SEPARATOR;
     }
 
     /**
      * Get full path to class instance template folder
      *
-     * @throws FolderPathException
-     *
      * @return string
+     * @throws FolderPathException
      */
     private function getTemplateFolderPath(): string
     {
-        return $this->getDocumentFolderPath() . DIRECTORY_SEPARATOR .  self::DEFAULT_TEMPLATE_FOLDER_NAME . DIRECTORY_SEPARATOR;
+        return $this->getUserCartridgeFolderPath() . DIRECTORY_SEPARATOR .  self::DEFAULT_TEMPLATE_FOLDER_NAME . DIRECTORY_SEPARATOR;
     }
 
     /**
      * Get folder path of class instance
      *
-     * @throws FolderPathException
-     *
      * @return string
+     * @throws FolderPathException
      */
-    private function getDocumentFolderPath(): string //@todo имя метода не совсем корректно,
+    private function getUserCartridgeFolderPath(): string
     {
-        if (!$this->documentFolderPath) {
+        if (!$this->userCartridgeFolderPath) {
             try {
                 $class_info = new \ReflectionClass($this->cartridge);
                 $fileName = preg_replace('/\\\\/',DIRECTORY_SEPARATOR, $class_info->getFileName());
-                $this->documentFolderPath = dirname($fileName);
+                $this->userCartridgeFolderPath = dirname($fileName);
             } catch (\Throwable $e) {
                 new FolderPathException($e->getMessage(), $e->getCode(), $e);
             }
         }
 
-        return $this->documentFolderPath;
+        return $this->userCartridgeFolderPath;
     }
 
     /**
      * @param string $documentExt
+     *
      * @return string
      */
     private function generateDocumentName(string $documentExt): string
@@ -178,8 +182,8 @@ class DocumentInfoBuilder implements DocumentInfoBuilderInterface
     /**
      * Check params to equal in cartridge method setupRequiredParams
      * @param array $params
-     * @return bool
      *
+     * @return bool
      * @throws InitParamsException
      */
     private function validateParams(array $params): bool

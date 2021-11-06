@@ -8,8 +8,8 @@ class DocumentInfoDirector
 {
     /**
      * @param DocumentInfoBuilderInterface $documentInfoBuilder
-     * @return DocumentInfoBuilderInterface
      *
+     * @return DocumentInfoBuilderInterface
      * @throws DocumentInfoBuilderExceptionInterface
      */
     public function buildDocumentInfo(DocumentInfoBuilderInterface $documentInfoBuilder): DocumentInfoBuilderInterface

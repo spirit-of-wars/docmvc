@@ -6,7 +6,10 @@ use PhpOffice\PhpWord\TemplateProcessor;
 
 class TemplateProcessorAdapter extends TemplateProcessor implements SaveDocumentAdapterInterface
 {
-    public function saveDocument($documentPath): void
+    /**
+     * @param string $documentPath
+     */
+    public function saveDocument(string $documentPath): void
     {
         $this->saveAs($documentPath);
     }

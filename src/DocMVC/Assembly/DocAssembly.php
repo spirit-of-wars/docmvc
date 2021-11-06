@@ -2,6 +2,8 @@
 
 namespace DocMVC\Assembly;
 
+use DocMVC\Assembly\AssemblyResult\DocAssemblyResult;
+use DocMVC\Assembly\AssemblyResult\DocumentAssemblyResultInterface;
 use DocMVC\Assembly\DriverAdapter\PHPWordAdapter;
 use DocMVC\Assembly\DriverAdapter\SaveDocumentAdapterInterface;
 use DocMVC\Assembly\DriverAdapter\TemplateProcessorAdapter;
@@ -50,68 +52,36 @@ class DocAssembly extends AbstractDocumentAssembly
      *
      * @throws BuildDocumentException
      */
-    public function buildDocument(): void
+    public function buildDocument(): DocumentAssemblyResultInterface
     {
         try {
-            $this->documentRenderer->renderFromView($this->getDriver(), $this->getDocumentInfo()->getModel(), $this->getDocumentInfo()->getViewPath(), $this->getDocumentInfo()->getParams());
-            $this->saveDoc($this->getDocumentInfo()->getTmpDocumentPath());
-            $this->initContentFromFile($this->getDocumentInfo()->getTmpDocumentPath());
+            $driver = $this->createDriver();
+            $this->renderFromView($driver, $this->documentInfo);
+            $driver->saveDocument($this->documentInfo->getTmpDocumentPath());
+
+            return new DocAssemblyResult($this->documentInfo, $driver);
         } catch (\Throwable $e) {
             throw new BuildDocumentException($e->getMessage(), $e->getCode(), $e);
         }
-    }
-
-    public function download(): void
-    {
-        $this->DLHeaders();
-        $this->DL();
     }
 
     /**
      * Create driver object for work with document
      *
      * @return SaveDocumentAdapterInterface
-     *@throws CreateDriverException
+     * @throws CreateDriverException
      *
      */
     protected function createDriver(): object
     {
         try {
-            if (!$this->getDocumentInfo()->getTemplatePath()) {
+            if (!$this->documentInfo->getTemplatePath()) {
                 return new PHPWordAdapter();
             }
 
-            return new TemplateProcessorAdapter($this->getDocumentInfo()->getTemplatePath());
+            return new TemplateProcessorAdapter($this->documentInfo->getTemplatePath());
         } catch (\Throwable $e) {
             throw new CreateDriverException($e->getMessage(), $e->getCode(), $e);
         }
-    }
-
-    /**
-     * Save document to path
-     *
-     * @throws \Throwable
-     */
-    protected function saveDoc($savePath): void
-    {
-        $this->driver->saveDocument($savePath);
-    }
-
-    /**
-     * Generate headers for download document
-     */
-    protected function DLHeaders(): void
-    {
-        $documentName = $this->getDocumentInfo()->getDocumentName();
-        header("Content-type: application/vnd.openxmlformats-officedocument.wordprocessingml.document");
-        header(sprintf('Content-Disposition: attachment; filename="%s"', $documentName));
-    }
-
-    /**
-     * Echo document content
-     */
-    protected function DL(): void
-    {
-        echo $this->getContent();
     }
 }

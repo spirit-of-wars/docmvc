@@ -2,9 +2,10 @@
 
 namespace DocMVC\DocumentManager;
 
+use DocMVC\Assembly\AssemblyResult\DocumentAssemblyResultInterface;
 use DocMVC\Assembly\DocumentAssemblyInterface;
 use DocMVC\Exception\Assembly\AssemblyDocument\AssemblyDocumentExceptionInterface;
-use DocMVC\Exception\DocumentManager\AssembledDocumentProcessor\BuildDocumentException;
+use DocMVC\Exception\DocMVCException;
 use DocMVC\Exception\DocumentManager\AssembledDocumentProcessor\DownloadDocumentException;
 use DocMVC\Exception\DocumentManager\AssembledDocumentProcessor\RemoveDocumentException;
 use DocMVC\Exception\DocumentManager\AssembledDocumentProcessor\SaveDocumentException;
@@ -15,9 +16,9 @@ use Psr\Log\LoggerInterface;
 class AssembledDocumentProcessor
 {
     /**
-     * @var DocumentAssemblyInterface
+     * @var DocumentAssemblyResultInterface
      */
-    private $documentAssembly;
+    private $documentAssemblyResult;
 
     /**
      * @var AssembledDocumentProcessorConfig
@@ -34,26 +35,23 @@ class AssembledDocumentProcessor
      * @param AssembledDocumentProcessorConfig $config
      * @param LoggerInterface $logger
      */
-    public function __construct(DocumentAssemblyInterface $documentAssembly, AssembledDocumentProcessorConfig $config, LoggerInterface $logger)
+    public function __construct(DocumentAssemblyResultInterface $documentAssemblyResult, AssembledDocumentProcessorConfig $config, LoggerInterface $logger)
     {
-        $this->documentAssembly = $documentAssembly;
+        $this->documentAssemblyResult = $documentAssemblyResult;
         $this->config = $config;
         $this->logger = $logger;
 
-        try {
-            $this->documentAssembly->buildDocument();
-        } catch (AssemblyDocumentExceptionInterface $e) {
-            throw new BuildDocumentException($e->getMessage(), $e->getCode(), $e);
-        }
+        $this->setErrorHandler();
     }
 
     /**
-     * Remove document for tmpDocumentPath
+     * Remove file from filePath
+     * @param string $filePath
      */
-    public function removeDocument(): void
+    public function remove(string $filePath): void
     {
         try {
-            FileOperations::removeFile($this->documentAssembly->getTmpDocumentPath());
+            FileOperations::removeFile($filePath);
         } catch (FileOperationsExceptionInterface $e) {
             $this->logger->error('DocMVC remove document error', ['error' => $e->getMessage(), 'exception' => $e]);
             throw new RemoveDocumentException($e->getMessage(), $e->getCode(), $e);
@@ -66,7 +64,7 @@ class AssembledDocumentProcessor
     public function saveAs(string $saveDocumentPath): self
     {
         try {
-            FileOperations::copyFile($this->documentAssembly->getTmpDocumentPath(), $saveDocumentPath, $this->config->getRewritableMode());
+            FileOperations::copyFile($this->documentAssemblyResult->getTmpDocumentPath(), $saveDocumentPath, $this->config->getRewritableMode());
         } catch (FileOperationsExceptionInterface $e) {
             $this->logger->error('DocMVC save document error', ['error' => $e->getMessage(), 'exception' => $e]);
             throw new SaveDocumentException($e->getMessage(), $e->getCode(), $e);
@@ -82,8 +80,8 @@ class AssembledDocumentProcessor
     {
         try {
             $dirPath = rtrim($dir, '/');
-            $saveDocumentPath = $dirPath . DIRECTORY_SEPARATOR . $this->documentAssembly->getDocumentName();
-            FileOperations::copyFile($this->documentAssembly->getTmpDocumentPath(), $saveDocumentPath, $this->config->getRewritableMode());
+            $saveDocumentPath = $dirPath . DIRECTORY_SEPARATOR . $this->documentAssemblyResult->getDocumentName();
+            FileOperations::copyFile($this->documentAssemblyResult->getTmpDocumentPath(), $saveDocumentPath, $this->config->getRewritableMode());
         } catch (FileOperationsExceptionInterface $e) {
             $this->logger->error('DocMVC save document error', ['error' => $e->getMessage(), 'exception' => $e]);
             throw new SaveDocumentException($e->getMessage(), $e->getCode(), $e);
@@ -98,11 +96,27 @@ class AssembledDocumentProcessor
     public function download(): self
     {
         try {
-            $this->documentAssembly->download();
-        } catch (AssemblyDocumentExceptionInterface|\Throwable $e) {
+            $this->documentAssemblyResult->download();
+        } catch (\Throwable $e) {
             $this->logger->error('DocMVC download document error', ['error' => $e->getMessage(), 'exception' => $e]);
             throw new DownloadDocumentException($e->getMessage(), $e->getCode(), $e);
         }
         exit();
+    }
+
+    /**
+     * Set error handler
+     * Stop generate document, if founded warning, notice or error
+     *
+     * @throws DocMVCException
+     */
+    private function setErrorHandler()
+    {
+        set_error_handler(function ($err_severity, $err_msg, $err_file, $err_line) {
+            $errMessage = 'DocMVC Error! Generate document has been aborted. ';
+            $errMessage .= sprintf("Error message: '%s' from file '%s' line '%s'", $err_msg, $err_file, $err_line);
+
+            throw new DocMVCException($errMessage);
+        });
     }
 }

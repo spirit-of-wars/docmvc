@@ -2,10 +2,11 @@
 
 namespace DocMVC\Assembly;
 
+use DocMVC\Assembly\AssemblyResult\DocumentAssemblyResultInterface;
+use DocMVC\Assembly\AssemblyResult\ExcelAssemblyResult;
 use DocMVC\Exception\Assembly\AssemblyDocument\AssemblyDocumentException;
 use DocMVC\Exception\Assembly\AssemblyDocument\BuildDocumentException;
 use DocMVC\Exception\Assembly\AssemblyDocument\CreateDriverException;
-use DocMVC\Exception\Assembly\AssemblyDocument\DownloadDocumentException;
 use \PhpOffice\PhpSpreadsheet\Spreadsheet;
 use \PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Writer\IWriter;
@@ -21,13 +22,6 @@ class ExcelAssembly extends AbstractDocumentAssembly
     public const TYPE_XLSX = 'xlsx';
 
     private const Xlsx = 'Xlsx';
-
-    /**
-     * Object to work with document
-     *
-     * @var Spreadsheet
-     */
-    protected $driver;
 
     /**
      * Get allowed extensions
@@ -53,21 +47,17 @@ class ExcelAssembly extends AbstractDocumentAssembly
      *
      * @throws BuildDocumentException
      */
-    public function buildDocument(): void
+    public function buildDocument(): DocumentAssemblyResultInterface
     {
         try {
-            $this->documentRenderer->renderFromView($this->getDriver(), $this->getDocumentInfo()->getModel(), $this->getDocumentInfo()->getViewPath(), $this->getDocumentInfo()->getParams());
-            $this->getWriter()->save($this->getDocumentInfo()->getTmpDocumentPath());
-            $this->initContentFromFile($this->getDocumentInfo()->getTmpDocumentPath());
+            $driver = $this->createDriver();
+            $this->renderFromView($driver, $this->documentInfo);
+            $this->getWriter($driver)->save($this->documentInfo->getTmpDocumentPath());
+
+            return new ExcelAssemblyResult($this->documentInfo, $driver);
         } catch (\Throwable $e) {
             throw new BuildDocumentException($e->getMessage(), $e->getCode(), $e);
         }
-    }
-
-    public function download(): void
-    {
-        $this->DLHeaders();
-        $this->DL();
     }
 
     /**
@@ -75,12 +65,11 @@ class ExcelAssembly extends AbstractDocumentAssembly
      *
      * @return Spreadsheet
      * @throws AssemblyDocumentException
-     *
      */
     protected function createDriver(): object
     {
         try {
-            if ($tmp = $this->getDocumentInfo()->getTemplatePath()) {
+            if ($tmp = $this->documentInfo->getTemplatePath()) {
                 return IOFactory::load($tmp);
             }
 
@@ -88,34 +77,6 @@ class ExcelAssembly extends AbstractDocumentAssembly
         } catch (\Throwable $e) {
             throw new CreateDriverException($e->getMessage(), $e->getCode(), $e);
         }
-    }
-
-    /**
-     * Generate headers for download document
-     */
-    protected function DLHeaders(): void
-    {
-        $documentName = $this->getDocumentInfo()->getDocumentName();
-        header('Content-Type: application/vnd.ms-excel');
-        header(sprintf('Content-Disposition: attachment;filename="%s"', $documentName));
-        header('Cache-Control: max-age=0');
-        header('Cache-Control: cache, must-revalidate');
-        header('Pragma: public');
-    }
-
-    /**
-     * Echo document content
-     *
-     * @throws DownloadDocumentException
-     */
-    protected function DL(): void
-    {
-        echo $this->getContent();
-//        try {
-//            $this->getWriter()->save('php://output');
-//        } catch (\Throwable $e) {
-//            throw new DownloadFileException($e->getMessage(), $e->getCode(), $e);
-//        }
     }
 
     /**
@@ -140,15 +101,16 @@ class ExcelAssembly extends AbstractDocumentAssembly
 
     /**
      * Get writer object
+     * @param Spreadsheet $driver
      *
      * @return \PhpOffice\PhpSpreadsheet\Writer\IWriter
-     *@throws AssemblyDocumentException
+     * @throws AssemblyDocumentException
      *
      */
-    private function getWriter(): IWriter
+    private function getWriter(Spreadsheet $driver): IWriter
     {
         try {
-            return IOFactory::createWriter($this->driver, self::Xlsx);
+            return IOFactory::createWriter($driver, self::Xlsx);
         } catch (\Throwable $e) {
             throw new AssemblyDocumentException($e->getMessage(), $e->getCode(), $e);
         }

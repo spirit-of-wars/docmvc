@@ -64,6 +64,7 @@ class DocumentInfo
 
     /**
      * @param $model
+     *
      * @return $this
      */
     public function setModel($model): self
@@ -84,10 +85,11 @@ class DocumentInfo
     }
 
     /**
-     * @param $viewPath
+     * @param string $viewPath
+     *
      * @return $this
      */
-    public function setViewPath($viewPath): self
+    public function setViewPath(string $viewPath): self
     {
         $this->viewPath = $viewPath;
 
@@ -105,10 +107,11 @@ class DocumentInfo
     }
 
     /**
-     * @param $templatePath
+     * @param string $templatePath
+     *
      * @return $this
      */
-    public function setTemplatePath($templatePath): self
+    public function setTemplatePath(?string $templatePath): self
     {
         $this->templatePath = $templatePath;
 
@@ -126,10 +129,10 @@ class DocumentInfo
     }
 
     /**
-     * @param $documentExt
+     * @param string $documentExt
      * @return $this
      */
-    public function setDocumentExt($documentExt): self
+    public function setDocumentExt(string $documentExt): self
     {
         $this->documentExt = $documentExt;
 
@@ -147,10 +150,11 @@ class DocumentInfo
     }
 
     /**
-     * @param $tmpDocumentPath
+     * @param string $tmpDocumentPath
+     *
      * @return $this
      */
-    public function setTmpDocumentPath($tmpDocumentPath): self
+    public function setTmpDocumentPath(string $tmpDocumentPath): self
     {
         $this->tmpDocumentPath = $tmpDocumentPath;
 
@@ -166,10 +170,11 @@ class DocumentInfo
     }
 
     /**
-     * @param $documentName
+     * @param string $documentName
+     *
      * @return $this
      */
-    public function setDocumentName($documentName): self
+    public function setDocumentName(string $documentName): self
     {
         $this->documentName = $documentName;
 
@@ -186,6 +191,7 @@ class DocumentInfo
 
     /**
      * @param array $params
+     *
      * @return $this
      */
     public function setParams(array $params): self

@@ -21,6 +21,7 @@ class AssembledDocumentProcessorConfig
 
     /**
      * @param bool $rewritableMode
+     *
      * @return $this
      */
     public function setRewritableMode(bool $rewritableMode): self
