@@ -46,8 +46,8 @@ class PdfAssembly extends AbstractDocumentAssembly
         try {
             $driver = $this->createDriver();
             $driver->setPaper('A4', 'portrait');
-            $content = $this->renderFromView($driver, $this->documentInfo);
-            $driver->loadHtml($content);
+            $viewContent = $this->renderFromView($driver, $this->documentInfo);
+            $driver->loadHtml($viewContent);
             $driver->render();
             $content = $driver->output();
             $this->saveToTmpDocument($content);

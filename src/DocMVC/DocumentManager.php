@@ -60,7 +60,7 @@ class DocumentManager
             $documentAssemblyResult = $documentAssembly->buildDocument();
 
             return new AssembledDocumentProcessor($documentAssemblyResult, $this->processorConfig, $this->logger);
-        } catch (AssemblyDocumentFactoryExceptionInterface|AssembledDocumentProcessorExceptionInterface $e) {
+        } catch (AssemblyDocumentFactoryExceptionInterface $e) {
             $this->logger->error('DocMVC document build error', ['error' => $e->getMessage(), 'exception' => $e]);
             throw new DocMVCException($e->getMessage(), $e->getCode(), $e);
         }

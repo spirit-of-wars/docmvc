@@ -81,4 +81,22 @@ class FileOperations
             }
         }
     }
+
+    /**
+     * @param string $filePath
+     *
+     * @throws FileOperationException
+     */
+    public static function getContentFromFile(string $filePath): string
+    {
+        if (!file_exists($filePath)) {
+            throw new FileOperationException(sprintf("Content file is not existed: '%s'", $filePath));
+        }
+        $fileContent = file_get_contents($filePath);
+        if ($fileContent === false) {
+            throw new FileOperationException(sprintf("Can't get content from file: '%s'", $filePath));
+        }
+
+        return $fileContent;
+    }
 }

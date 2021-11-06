@@ -21,7 +21,6 @@ abstract class AbstractDocumentAssemblyResult implements DocumentAssemblyResultI
     /**
      * @param DocumentInfo $documentInfo
      * @param object $driver
-     * @param string $content
      */
     public function __construct(DocumentInfo $documentInfo, ?object $driver = null)
     {

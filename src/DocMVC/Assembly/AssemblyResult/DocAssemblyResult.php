@@ -25,7 +25,7 @@ class DocAssemblyResult extends AbstractDocumentAssemblyResult
     }
 
     /**
-     * Echo document content
+     * Streaming document
      */
     protected function DL(): void
     {

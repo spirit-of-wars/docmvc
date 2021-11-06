@@ -31,24 +31,6 @@ abstract class AbstractDocumentAssembly
     }
 
     /**
-     * @param string $filePath
-     *
-     * @throws BuildDocumentException
-     */
-    protected function getContentFromFile(string $filePath): string
-    {
-        if (!file_exists($filePath)) {
-            throw new BuildDocumentException(sprintf("Content file is not existed: '%s'", $filePath));
-        }
-        $fileContent = file_get_contents($filePath);
-        if ($fileContent === false) {
-            throw new BuildDocumentException(sprintf("Can't get content from file: '%s'", $filePath));
-        }
-
-        return $fileContent;
-    }
-
-    /**
      * @param object $driver
      * @param DocumentInfo $documentInfo
      *
