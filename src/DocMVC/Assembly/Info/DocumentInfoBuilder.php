@@ -120,7 +120,7 @@ class DocumentInfoBuilder implements DocumentInfoBuilderInterface
     public function initParams(): void
     {
         if ($this->validateParams($this->cartridge->getParams())) {
-            $this->params = $this->cartridge->getParams();
+            $this->documentInfo->setParams($this->cartridge->getParams());
         }
     }
 

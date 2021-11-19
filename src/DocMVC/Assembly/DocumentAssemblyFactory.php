@@ -5,6 +5,7 @@ namespace DocMVC\Assembly;
 use DocMVC\Assembly\Info\DocumentInfo;
 use DocMVC\Assembly\Info\DocumentInfoBuilder;
 use DocMVC\Assembly\Info\DocumentInfoDirector;
+use DocMVC\Cartridge\CartridgeInterface;
 use DocMVC\Cartridge\DocCartridge;
 use DocMVC\Cartridge\ExcelCartridge;
 use DocMVC\Cartridge\PdfCartridge;
@@ -38,12 +39,12 @@ class DocumentAssemblyFactory
     }
 
     /**
-     * @param SetupCartridgeInterface $cartridge
+     * @param CartridgeInterface $cartridge
      *
      * @return string
      * @throws AssemblyDocumentCreateException
      */
-    public static function getAssemblyDocumentClassByCartridge(SetupCartridgeInterface $cartridge): string
+    public static function getAssemblyDocumentClassByCartridge(CartridgeInterface $cartridge): string
     {
         foreach (self::ASSEMBLIES as $cartridgeClassName => $assemblyClassName) {
             if ($cartridge instanceof $cartridgeClassName) {
@@ -65,11 +66,10 @@ class DocumentAssemblyFactory
         try {
             $builder = new DocumentInfoBuilder($cartridge);
             $documentInfoDirector = new DocumentInfoDirector();
-            $builder = $documentInfoDirector->buildDocumentInfo($builder);
+
+            return $documentInfoDirector->buildDocumentInfo($builder);
         } catch (DocumentInfoBuilderExceptionInterface $e) {
             throw new DocumentInfoCreateException($e->getMessage(), $e->getCode(), $e);
         }
-
-        return $builder->getDocumentInfo();
     }
 }

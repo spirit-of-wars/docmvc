@@ -4,7 +4,6 @@ namespace DocMVC\DocumentManager;
 
 use DocMVC\Assembly\AssemblyResult\DocumentAssemblyResultInterface;
 use DocMVC\Assembly\DocumentAssemblyInterface;
-use DocMVC\Exception\Assembly\AssemblyDocument\AssemblyDocumentExceptionInterface;
 use DocMVC\Exception\DocMVCException;
 use DocMVC\Exception\DocumentManager\AssembledDocumentProcessor\DownloadDocumentException;
 use DocMVC\Exception\DocumentManager\AssembledDocumentProcessor\RemoveDocumentException;

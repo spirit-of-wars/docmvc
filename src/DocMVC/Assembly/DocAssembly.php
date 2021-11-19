@@ -22,13 +22,6 @@ class DocAssembly extends AbstractDocumentAssembly
     public const TYPE_DOCX = 'docx';
 
     /**
-     * Object to work with document
-     *
-     * @var SaveDocumentAdapterInterface
-     */
-    protected $driver;
-
-    /**
      * Get allowed extensions
      *
      * @return array

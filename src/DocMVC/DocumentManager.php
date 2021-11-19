@@ -65,6 +65,7 @@ class DocumentManager
             throw new DocMVCException($e->getMessage(), $e->getCode(), $e);
         }
     }
+
     /**
      * Enable rewrite existed document for save operations
      *
@@ -90,6 +91,4 @@ class DocumentManager
 
         return $this;
     }
-
-
 }

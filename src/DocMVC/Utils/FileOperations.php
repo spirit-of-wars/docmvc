@@ -33,7 +33,7 @@ class FileOperations
             throw new FileNotExistedException(sprintf("Origin file '%s' is not existed", $filePath));
         }
         if (!$isRewritable && file_exists($newFilePath)) {
-            throw new FileOperationException(sprintf("File '%s' is already existed", $newFilePath));
+            throw new DirectoryPermissionException(sprintf("File '%s' is already existed", $newFilePath));
         }
 
         if (!copy($filePath, $newFilePath)) {

@@ -9,16 +9,16 @@ class DocumentInfoDirector
     /**
      * @param DocumentInfoBuilderInterface $documentInfoBuilder
      *
-     * @return DocumentInfoBuilderInterface
+     * @return DocumentInfo
      * @throws DocumentInfoBuilderExceptionInterface
      */
-    public function buildDocumentInfo(DocumentInfoBuilderInterface $documentInfoBuilder): DocumentInfoBuilderInterface
+    public function buildDocumentInfo(DocumentInfoBuilderInterface $documentInfoBuilder): DocumentInfo
     {
         $documentInfoBuilder->init();
         $documentInfoBuilder->initParams();
         $documentInfoBuilder->initDocumentExt();
         $documentInfoBuilder->initTmpDocumentPath();
 
-        return $documentInfoBuilder;
+        return $documentInfoBuilder->getDocumentInfo();
     }
 }
