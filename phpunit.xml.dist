@@ -1,0 +1,9 @@
+<phpunit
+        cacheResult="false"
+        bootstrap="vendor/autoload.php">
+    <testsuites>
+        <testsuite name="DocMVC Test Suite">
+            <directory>./Test/Unit/</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

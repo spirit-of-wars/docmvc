@@ -24,6 +24,6 @@
     "psr-4": {
       "SpiritOfWars\\DocMVC\\": "src/DocMVC/"
     },
-    "classmap": ["sample"]
+    "classmap": ["sample", "Test"]
   }
 }

@@ -12,7 +12,6 @@ use SpiritOfWars\DocMVC\Cartridge\PdfCartridge;
 use SpiritOfWars\DocMVC\Cartridge\SetupCartridgeInterface;
 use SpiritOfWars\DocMVC\Exception\Assembly\AssemblyDocumentFactory\AssemblyDocumentCreateException;
 use SpiritOfWars\DocMVC\Exception\Assembly\AssemblyDocumentFactory\DocumentInfoCreateException;
-use SpiritOfWars\DocMVC\Exception\LogicException;
 use SpiritOfWars\DocMVC\Test\Data\CartridgeTestFactory;
 use PHPUnit\Framework\TestCase;
 
