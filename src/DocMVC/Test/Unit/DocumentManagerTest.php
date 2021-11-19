@@ -1,7 +1,8 @@
 <?php
 
-namespace SpiritOfWars\DocMVC\Test;
+namespace SpiritOfWars\DocMVC\Test\Unit;
 
+use SpiritOfWars\DocMVC\DocumentManager;
 use SpiritOfWars\DocMVC\DocumentManager\AssembledDocumentProcessor;
 use SpiritOfWars\DocMVC\Test\Data\CartridgeTestFactory;
 use PHPUnit\Framework\TestCase;
@@ -12,7 +13,7 @@ class DocumentManagerTest extends TestCase
     {
         $docCartridge = CartridgeTestFactory::createTestDocCartridge();
 
-        $fileManager = new \SpiritOfWars\DocMVC\DocumentManager($docCartridge);
+        $fileManager = new DocumentManager($docCartridge);
 
         $documentProcessor = $fileManager->build();
 

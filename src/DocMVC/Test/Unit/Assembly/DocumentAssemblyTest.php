@@ -1,6 +1,6 @@
 <?php
 
-namespace SpiritOfWars\DocMVC\Test\Assembly;
+namespace SpiritOfWars\DocMVC\Test\Unit\Assembly;
 
 use SpiritOfWars\DocMVC\Assembly\AssemblyResult\DocAssemblyResult;
 use SpiritOfWars\DocMVC\Assembly\AssemblyResult\DocumentAssemblyResultInterface;

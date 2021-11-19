@@ -1,6 +1,6 @@
 <?php
 
-namespace SpiritOfWars\DocMVC\Test\DocumentManager;
+namespace SpiritOfWars\DocMVC\Test\Unit\DocumentManager;
 
 use SpiritOfWars\DocMVC\Assembly\DocumentAssemblyFactory;
 use SpiritOfWars\DocMVC\DocumentManager\AssembledDocumentProcessor;

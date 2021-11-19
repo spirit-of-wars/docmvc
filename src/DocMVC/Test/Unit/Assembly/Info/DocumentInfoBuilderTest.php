@@ -1,6 +1,6 @@
 <?php
 
-namespace SpiritOfWars\DocMVC\Test\Assembly\Info;
+namespace SpiritOfWars\DocMVC\Test\Unit\Assembly\Info;
 
 use SpiritOfWars\DocMVC\Assembly\Info\DocumentInfoBuilder;
 use SpiritOfWars\DocMVC\Cartridge\SetupCartridgeInterface;
