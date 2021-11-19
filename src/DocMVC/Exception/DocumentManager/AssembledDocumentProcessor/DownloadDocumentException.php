@@ -1,8 +1,8 @@
 <?php
 
-namespace DocMVC\Exception\DocumentManager\AssembledDocumentProcessor;
+namespace SpiritOfWars\DocMVC\Exception\DocumentManager\AssembledDocumentProcessor;
 
-use DocMVC\Exception\RuntimeException;
+use SpiritOfWars\DocMVC\Exception\RuntimeException;
 
 class DownloadDocumentException extends RuntimeException implements AssembledDocumentProcessorExceptionInterface
 {

@@ -20,12 +20,9 @@
   "require-dev": {
     "phpunit/phpunit": "^9.5"
   },
-  "classmap": [
-    "src/"
-  ],
   "autoload": {
     "psr-4": {
-      "DocMVC\\": "src/DocMVC"
+      "SpiritOfWars\\DocMVC\\": "src/DocMVC/"
     }
   }
 }

@@ -1,12 +1,12 @@
 <?php
 
-namespace DocMVC\Assembly;
+namespace SpiritOfWars\DocMVC\Assembly;
 
-use DocMVC\Assembly\AssemblyResult\DocumentAssemblyResultInterface;
-use DocMVC\Assembly\AssemblyResult\ExcelAssemblyResult;
-use DocMVC\Exception\Assembly\AssemblyDocument\AssemblyDocumentException;
-use DocMVC\Exception\Assembly\AssemblyDocument\BuildDocumentException;
-use DocMVC\Exception\Assembly\AssemblyDocument\CreateDriverException;
+use SpiritOfWars\DocMVC\Assembly\AssemblyResult\DocumentAssemblyResultInterface;
+use SpiritOfWars\DocMVC\Assembly\AssemblyResult\ExcelAssemblyResult;
+use SpiritOfWars\DocMVC\Exception\Assembly\AssemblyDocument\AssemblyDocumentException;
+use SpiritOfWars\DocMVC\Exception\Assembly\AssemblyDocument\BuildDocumentException;
+use SpiritOfWars\DocMVC\Exception\Assembly\AssemblyDocument\CreateDriverException;
 use \PhpOffice\PhpSpreadsheet\Spreadsheet;
 use \PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Writer\IWriter;

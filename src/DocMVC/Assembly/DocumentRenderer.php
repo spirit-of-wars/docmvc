@@ -1,8 +1,8 @@
 <?php
 
-namespace DocMVC\Assembly;
+namespace SpiritOfWars\DocMVC\Assembly;
 
-use DocMVC\Exception\Assembly\Renderer\RenderException;
+use SpiritOfWars\DocMVC\Exception\Assembly\Renderer\RenderException;
 
 class DocumentRenderer
 {

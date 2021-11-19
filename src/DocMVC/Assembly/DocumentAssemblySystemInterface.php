@@ -1,6 +1,6 @@
 <?php
 
-namespace DocMVC\Assembly;
+namespace SpiritOfWars\DocMVC\Assembly;
 
 interface DocumentAssemblySystemInterface
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace DocMVC\Exception\Assembly\Renderer;
+namespace SpiritOfWars\DocMVC\Exception\Assembly\Renderer;
 
-use DocMVC\Exception\ExceptionInterface;
+use SpiritOfWars\DocMVC\Exception\ExceptionInterface;
 
 interface DocumentRendererExceptionInterface extends ExceptionInterface
 {

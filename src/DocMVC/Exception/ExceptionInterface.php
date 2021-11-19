@@ -1,6 +1,6 @@
 <?php
 
-namespace DocMVC\Exception;
+namespace SpiritOfWars\DocMVC\Exception;
 /**
  * Base DocMVC component's exception.
  *

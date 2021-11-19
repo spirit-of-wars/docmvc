@@ -1,8 +1,8 @@
 <?php
 
-namespace DocMVC\Assembly\Info;
+namespace SpiritOfWars\DocMVC\Assembly\Info;
 
-use DocMVC\Exception\Assembly\DocumentInfoBuilder\DocumentInfoBuilderExceptionInterface;
+use SpiritOfWars\DocMVC\Exception\Assembly\DocumentInfoBuilder\DocumentInfoBuilderExceptionInterface;
 
 class DocumentInfoDirector
 {

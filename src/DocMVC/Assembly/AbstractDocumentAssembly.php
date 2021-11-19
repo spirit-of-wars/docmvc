@@ -1,10 +1,10 @@
 <?php
 
-namespace DocMVC\Assembly;
+namespace SpiritOfWars\DocMVC\Assembly;
 
-use DocMVC\Assembly\Info\DocumentInfo;
-use DocMVC\Exception\Assembly\AssemblyDocument\BuildDocumentException;
-use DocMVC\Exception\DocMVCException;
+use SpiritOfWars\DocMVC\Assembly\Info\DocumentInfo;
+use SpiritOfWars\DocMVC\Exception\Assembly\AssemblyDocument\BuildDocumentException;
+use SpiritOfWars\DocMVC\Exception\DocMVCException;
 
 abstract class AbstractDocumentAssembly
     implements DocumentAssemblyInterface, DocumentAssemblySystemInterface

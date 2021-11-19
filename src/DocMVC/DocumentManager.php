@@ -1,14 +1,13 @@
 <?php
 
-namespace DocMVC;
+namespace SpiritOfWars\DocMVC;
 
-use DocMVC\Assembly\DocumentAssemblyFactory;
-use DocMVC\Cartridge\SetupCartridgeInterface;
-use DocMVC\DocumentManager\AssembledDocumentProcessor;
-use DocMVC\DocumentManager\AssembledDocumentProcessorConfig;
-use DocMVC\Exception\Assembly\AssemblyDocumentFactory\AssemblyDocumentFactoryExceptionInterface;
-use DocMVC\Exception\DocMVCException;
-use DocMVC\Exception\DocumentManager\AssembledDocumentProcessor\AssembledDocumentProcessorExceptionInterface;
+use SpiritOfWars\DocMVC\Assembly\DocumentAssemblyFactory;
+use SpiritOfWars\DocMVC\Cartridge\SetupCartridgeInterface;
+use SpiritOfWars\DocMVC\DocumentManager\AssembledDocumentProcessor;
+use SpiritOfWars\DocMVC\DocumentManager\AssembledDocumentProcessorConfig;
+use SpiritOfWars\DocMVC\Exception\Assembly\AssemblyDocumentFactory\AssemblyDocumentFactoryExceptionInterface;
+use SpiritOfWars\DocMVC\Exception\DocMVCException;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 

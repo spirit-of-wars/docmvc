@@ -1,6 +1,6 @@
 <?php
 
-namespace DocMVC\Assembly\DriverAdapter;
+namespace SpiritOfWars\DocMVC\Assembly\DriverAdapter;
 
 interface SaveDocumentAdapterInterface
 {

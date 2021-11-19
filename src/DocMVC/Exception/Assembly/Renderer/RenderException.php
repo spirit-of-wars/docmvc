@@ -1,8 +1,8 @@
 <?php
 
-namespace DocMVC\Exception\Assembly\Renderer;
+namespace SpiritOfWars\DocMVC\Exception\Assembly\Renderer;
 
-use DocMVC\Exception\RuntimeException;
+use SpiritOfWars\DocMVC\Exception\RuntimeException;
 
 class RenderException extends RuntimeException implements DocumentRendererExceptionInterface
 {

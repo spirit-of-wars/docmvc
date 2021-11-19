@@ -1,19 +1,19 @@
 <?php
 
-namespace DocMVC\Assembly\Info;
+namespace SpiritOfWars\DocMVC\Assembly\Info;
 
-use DocMVC\Assembly\DocumentAssemblyFactory;
-use DocMVC\Assembly\AbstractDocumentAssembly;
-use DocMVC\Cartridge\SetupCartridgeInterface;
-use DocMVC\Cartridge\SetupTemplateInterface;
-use DocMVC\Exception\Assembly\DocumentInfoBuilder\DocumentInfoBuilderExceptionInterface;
-use DocMVC\Exception\Assembly\DocumentInfoBuilder\FolderPathException;
-use DocMVC\Exception\Assembly\DocumentInfoBuilder\InitExtException;
-use DocMVC\Exception\Assembly\DocumentInfoBuilder\InitModelException;
-use DocMVC\Exception\Assembly\DocumentInfoBuilder\InitParamsException;
-use DocMVC\Exception\Assembly\DocumentInfoBuilder\InitTemplateException;
-use DocMVC\Exception\Assembly\DocumentInfoBuilder\InitViewException;
-use \DocMVC\Exception\Assembly\AssemblyDocumentFactory\AssemblyDocumentCreateException;
+use SpiritOfWars\DocMVC\Assembly\DocumentAssemblyFactory;
+use SpiritOfWars\DocMVC\Assembly\AbstractDocumentAssembly;
+use SpiritOfWars\DocMVC\Cartridge\SetupCartridgeInterface;
+use SpiritOfWars\DocMVC\Cartridge\SetupTemplateInterface;
+use SpiritOfWars\DocMVC\Exception\Assembly\DocumentInfoBuilder\DocumentInfoBuilderExceptionInterface;
+use SpiritOfWars\DocMVC\Exception\Assembly\DocumentInfoBuilder\FolderPathException;
+use SpiritOfWars\DocMVC\Exception\Assembly\DocumentInfoBuilder\InitExtException;
+use SpiritOfWars\DocMVC\Exception\Assembly\DocumentInfoBuilder\InitModelException;
+use SpiritOfWars\DocMVC\Exception\Assembly\DocumentInfoBuilder\InitParamsException;
+use SpiritOfWars\DocMVC\Exception\Assembly\DocumentInfoBuilder\InitTemplateException;
+use SpiritOfWars\DocMVC\Exception\Assembly\DocumentInfoBuilder\InitViewException;
+use SpiritOfWars\DocMVC\Exception\Assembly\AssemblyDocumentFactory\AssemblyDocumentCreateException;
 
 class DocumentInfoBuilder implements DocumentInfoBuilderInterface
 {

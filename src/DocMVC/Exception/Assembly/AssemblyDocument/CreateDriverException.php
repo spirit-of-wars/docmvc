@@ -1,8 +1,8 @@
 <?php
 
-namespace DocMVC\Exception\Assembly\AssemblyDocument;
+namespace SpiritOfWars\DocMVC\Exception\Assembly\AssemblyDocument;
 
-use DocMVC\Exception\RuntimeException;
+use SpiritOfWars\DocMVC\Exception\RuntimeException;
 
 class CreateDriverException extends RuntimeException implements AssemblyDocumentExceptionInterface
 {

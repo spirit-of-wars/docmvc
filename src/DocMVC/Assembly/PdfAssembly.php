@@ -1,10 +1,10 @@
 <?php
 
-namespace DocMVC\Assembly;
+namespace SpiritOfWars\DocMVC\Assembly;
 
-use DocMVC\Assembly\AssemblyResult\DocumentAssemblyResultInterface;
-use DocMVC\Assembly\AssemblyResult\PdfAssemblyResult;
-use DocMVC\Exception\Assembly\AssemblyDocument\BuildDocumentException;
+use SpiritOfWars\DocMVC\Assembly\AssemblyResult\DocumentAssemblyResultInterface;
+use SpiritOfWars\DocMVC\Assembly\AssemblyResult\PdfAssemblyResult;
+use SpiritOfWars\DocMVC\Exception\Assembly\AssemblyDocument\BuildDocumentException;
 use \Dompdf\Dompdf;
 
 class PdfAssembly extends AbstractDocumentAssembly

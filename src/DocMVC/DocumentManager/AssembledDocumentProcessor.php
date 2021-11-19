@@ -1,15 +1,15 @@
 <?php
 
-namespace DocMVC\DocumentManager;
+namespace SpiritOfWars\DocMVC\DocumentManager;
 
-use DocMVC\Assembly\AssemblyResult\DocumentAssemblyResultInterface;
-use DocMVC\Assembly\DocumentAssemblyInterface;
-use DocMVC\Exception\DocMVCException;
-use DocMVC\Exception\DocumentManager\AssembledDocumentProcessor\DownloadDocumentException;
-use DocMVC\Exception\DocumentManager\AssembledDocumentProcessor\RemoveDocumentException;
-use DocMVC\Exception\DocumentManager\AssembledDocumentProcessor\SaveDocumentException;
-use DocMVC\Exception\FileOperations\FileOperationsExceptionInterface;
-use DocMVC\Utils\FileOperations;
+use SpiritOfWars\DocMVC\Assembly\AssemblyResult\DocumentAssemblyResultInterface;
+use SpiritOfWars\DocMVC\Assembly\DocumentAssemblyInterface;
+use SpiritOfWars\DocMVC\Exception\DocMVCException;
+use SpiritOfWars\DocMVC\Exception\DocumentManager\AssembledDocumentProcessor\DownloadDocumentException;
+use SpiritOfWars\DocMVC\Exception\DocumentManager\AssembledDocumentProcessor\RemoveDocumentException;
+use SpiritOfWars\DocMVC\Exception\DocumentManager\AssembledDocumentProcessor\SaveDocumentException;
+use SpiritOfWars\DocMVC\Exception\FileOperations\FileOperationsExceptionInterface;
+use SpiritOfWars\DocMVC\Utils\FileOperations;
 use Psr\Log\LoggerInterface;
 
 class AssembledDocumentProcessor

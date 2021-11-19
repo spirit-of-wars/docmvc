@@ -1,21 +1,21 @@
 <?php
 
-namespace DocMVC\Test\Assembly;
+namespace SpiritOfWars\DocMVC\Test\Assembly;
 
-use DocMVC\Assembly\AssemblyResult\DocAssemblyResult;
-use DocMVC\Assembly\AssemblyResult\DocumentAssemblyResultInterface;
-use DocMVC\Assembly\AssemblyResult\ExcelAssemblyResult;
-use DocMVC\Assembly\AssemblyResult\PdfAssemblyResult;
-use DocMVC\Assembly\DocAssembly;
-use DocMVC\Assembly\DocumentAssemblyFactory;
-use DocMVC\Assembly\ExcelAssembly;
-use DocMVC\Assembly\Info\DocumentInfo;
-use DocMVC\Assembly\PdfAssembly;
-use DocMVC\Cartridge\SetupCartridgeInterface;
-use DocMVC\Exception\Assembly\AssemblyDocument\BuildDocumentException;
-use DocMVC\Exception\Assembly\AssemblyDocument\CreateDriverException;
-use DocMVC\Test\Data\AccessibleReflectionTrait;
-use DocMVC\Test\Data\CartridgeTestFactory;
+use SpiritOfWars\DocMVC\Assembly\AssemblyResult\DocAssemblyResult;
+use SpiritOfWars\DocMVC\Assembly\AssemblyResult\DocumentAssemblyResultInterface;
+use SpiritOfWars\DocMVC\Assembly\AssemblyResult\ExcelAssemblyResult;
+use SpiritOfWars\DocMVC\Assembly\AssemblyResult\PdfAssemblyResult;
+use SpiritOfWars\DocMVC\Assembly\DocAssembly;
+use SpiritOfWars\DocMVC\Assembly\DocumentAssemblyFactory;
+use SpiritOfWars\DocMVC\Assembly\ExcelAssembly;
+use SpiritOfWars\DocMVC\Assembly\Info\DocumentInfo;
+use SpiritOfWars\DocMVC\Assembly\PdfAssembly;
+use SpiritOfWars\DocMVC\Cartridge\SetupCartridgeInterface;
+use SpiritOfWars\DocMVC\Exception\Assembly\AssemblyDocument\BuildDocumentException;
+use SpiritOfWars\DocMVC\Exception\Assembly\AssemblyDocument\CreateDriverException;
+use SpiritOfWars\DocMVC\Test\Data\AccessibleReflectionTrait;
+use SpiritOfWars\DocMVC\Test\Data\CartridgeTestFactory;
 use PHPUnit\Framework\TestCase;
 
 class DocumentAssemblyTest extends TestCase

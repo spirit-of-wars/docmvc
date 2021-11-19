@@ -1,8 +1,8 @@
 <?php
 
-namespace DocMVC\Exception\DocumentManager\AssembledDocumentProcessor;
+namespace SpiritOfWars\DocMVC\Exception\DocumentManager\AssembledDocumentProcessor;
 
-use DocMVC\Exception\ExceptionInterface;
+use SpiritOfWars\DocMVC\Exception\ExceptionInterface;
 
 interface AssembledDocumentProcessorExceptionInterface extends ExceptionInterface
 {

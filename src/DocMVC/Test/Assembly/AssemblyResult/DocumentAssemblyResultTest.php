@@ -1,14 +1,14 @@
 <?php
 
-namespace DocMVC\Test\Assembly\AssemblyResult;
+namespace SpiritOfWars\DocMVC\Test\Assembly\AssemblyResult;
 
-use DocMVC\Assembly\AssemblyResult\DocAssemblyResult;
-use DocMVC\Assembly\AssemblyResult\DocumentAssemblyResultInterface;
-use DocMVC\Assembly\AssemblyResult\ExcelAssemblyResult;
-use DocMVC\Assembly\AssemblyResult\PdfAssemblyResult;
-use DocMVC\Assembly\DocumentAssemblyFactory;
-use DocMVC\Cartridge\SetupCartridgeInterface;
-use DocMVC\Test\Data\CartridgeTestFactory;
+use SpiritOfWars\DocMVC\Assembly\AssemblyResult\DocAssemblyResult;
+use SpiritOfWars\DocMVC\Assembly\AssemblyResult\DocumentAssemblyResultInterface;
+use SpiritOfWars\DocMVC\Assembly\AssemblyResult\ExcelAssemblyResult;
+use SpiritOfWars\DocMVC\Assembly\AssemblyResult\PdfAssemblyResult;
+use SpiritOfWars\DocMVC\Assembly\DocumentAssemblyFactory;
+use SpiritOfWars\DocMVC\Cartridge\SetupCartridgeInterface;
+use SpiritOfWars\DocMVC\Test\Data\CartridgeTestFactory;
 use PHPUnit\Framework\TestCase;
 
 class DocumentAssemblyResultTest extends TestCase

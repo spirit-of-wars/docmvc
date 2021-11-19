@@ -1,8 +1,8 @@
 <?php
 
-namespace DocMVC\Exception\Assembly\AssemblyDocumentFactory;
+namespace SpiritOfWars\DocMVC\Exception\Assembly\AssemblyDocumentFactory;
 
-use DocMVC\Exception\RuntimeException;
+use SpiritOfWars\DocMVC\Exception\RuntimeException;
 
 class AssemblyDocumentCreateException extends RuntimeException implements AssemblyDocumentFactoryExceptionInterface
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace DocMVC\Exception\FileOperations;
+namespace SpiritOfWars\DocMVC\Exception\FileOperations;
 
-use DocMVC\Exception\ExceptionInterface;
+use SpiritOfWars\DocMVC\Exception\ExceptionInterface;
 
 interface FileOperationsExceptionInterface extends ExceptionInterface
 {

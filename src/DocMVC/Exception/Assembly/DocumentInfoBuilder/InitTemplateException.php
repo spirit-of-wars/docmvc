@@ -1,8 +1,8 @@
 <?php
 
-namespace DocMVC\Exception\Assembly\DocumentInfoBuilder;
+namespace SpiritOfWars\DocMVC\Exception\Assembly\DocumentInfoBuilder;
 
-use DocMVC\Exception\RuntimeException;
+use SpiritOfWars\DocMVC\Exception\RuntimeException;
 
 class InitTemplateException extends RuntimeException implements DocumentInfoBuilderExceptionInterface
 {

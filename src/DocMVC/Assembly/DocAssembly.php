@@ -1,14 +1,14 @@
 <?php
 
-namespace DocMVC\Assembly;
+namespace SpiritOfWars\DocMVC\Assembly;
 
-use DocMVC\Assembly\AssemblyResult\DocAssemblyResult;
-use DocMVC\Assembly\AssemblyResult\DocumentAssemblyResultInterface;
-use DocMVC\Assembly\DriverAdapter\PHPWordAdapter;
-use DocMVC\Assembly\DriverAdapter\SaveDocumentAdapterInterface;
-use DocMVC\Assembly\DriverAdapter\TemplateProcessorAdapter;
-use DocMVC\Exception\Assembly\AssemblyDocument\BuildDocumentException;
-use DocMVC\Exception\Assembly\AssemblyDocument\CreateDriverException;
+use SpiritOfWars\DocMVC\Assembly\AssemblyResult\DocAssemblyResult;
+use SpiritOfWars\DocMVC\Assembly\AssemblyResult\DocumentAssemblyResultInterface;
+use SpiritOfWars\DocMVC\Assembly\DriverAdapter\PHPWordAdapter;
+use SpiritOfWars\DocMVC\Assembly\DriverAdapter\SaveDocumentAdapterInterface;
+use SpiritOfWars\DocMVC\Assembly\DriverAdapter\TemplateProcessorAdapter;
+use SpiritOfWars\DocMVC\Exception\Assembly\AssemblyDocument\BuildDocumentException;
+use SpiritOfWars\DocMVC\Exception\Assembly\AssemblyDocument\CreateDriverException;
 
 
 class DocAssembly extends AbstractDocumentAssembly

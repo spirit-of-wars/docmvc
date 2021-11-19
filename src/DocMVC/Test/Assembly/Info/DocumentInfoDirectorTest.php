@@ -1,13 +1,13 @@
 <?php
 
-namespace DocMVC\Test\Assembly\Info;
+namespace SpiritOfWars\DocMVC\Test\Assembly\Info;
 
-use DocMVC\Assembly\Info\DocumentInfo;
-use DocMVC\Assembly\Info\DocumentInfoBuilder;
-use DocMVC\Assembly\Info\DocumentInfoDirector;
-use DocMVC\Cartridge\SetupCartridgeInterface;
-use DocMVC\Cartridge\SetupTemplateInterface;
-use DocMVC\Test\Data\CartridgeTestFactory;
+use SpiritOfWars\DocMVC\Assembly\Info\DocumentInfo;
+use SpiritOfWars\DocMVC\Assembly\Info\DocumentInfoBuilder;
+use SpiritOfWars\DocMVC\Assembly\Info\DocumentInfoDirector;
+use SpiritOfWars\DocMVC\Cartridge\SetupCartridgeInterface;
+use SpiritOfWars\DocMVC\Cartridge\SetupTemplateInterface;
+use SpiritOfWars\DocMVC\Test\Data\CartridgeTestFactory;
 use PHPUnit\Framework\TestCase;
 
 class DocumentInfoDirectorTest extends TestCase

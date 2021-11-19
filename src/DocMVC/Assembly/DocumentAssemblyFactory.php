@@ -1,19 +1,19 @@
 <?php
 
-namespace DocMVC\Assembly;
+namespace SpiritOfWars\DocMVC\Assembly;
 
-use DocMVC\Assembly\Info\DocumentInfo;
-use DocMVC\Assembly\Info\DocumentInfoBuilder;
-use DocMVC\Assembly\Info\DocumentInfoDirector;
-use DocMVC\Cartridge\CartridgeInterface;
-use DocMVC\Cartridge\DocCartridge;
-use DocMVC\Cartridge\ExcelCartridge;
-use DocMVC\Cartridge\PdfCartridge;
-use DocMVC\Cartridge\SetupCartridgeInterface;
-use DocMVC\Exception\Assembly\AssemblyDocumentFactory\AssemblyDocumentCreateException;
-use DocMVC\Exception\Assembly\AssemblyDocumentFactory\AssemblyDocumentFactoryExceptionInterface;
-use DocMVC\Exception\Assembly\AssemblyDocumentFactory\DocumentInfoCreateException;
-use DocMVC\Exception\Assembly\DocumentInfoBuilder\DocumentInfoBuilderExceptionInterface;
+use SpiritOfWars\DocMVC\Assembly\Info\DocumentInfo;
+use SpiritOfWars\DocMVC\Assembly\Info\DocumentInfoBuilder;
+use SpiritOfWars\DocMVC\Assembly\Info\DocumentInfoDirector;
+use SpiritOfWars\DocMVC\Cartridge\CartridgeInterface;
+use SpiritOfWars\DocMVC\Cartridge\DocCartridge;
+use SpiritOfWars\DocMVC\Cartridge\ExcelCartridge;
+use SpiritOfWars\DocMVC\Cartridge\PdfCartridge;
+use SpiritOfWars\DocMVC\Cartridge\SetupCartridgeInterface;
+use SpiritOfWars\DocMVC\Exception\Assembly\AssemblyDocumentFactory\AssemblyDocumentCreateException;
+use SpiritOfWars\DocMVC\Exception\Assembly\AssemblyDocumentFactory\AssemblyDocumentFactoryExceptionInterface;
+use SpiritOfWars\DocMVC\Exception\Assembly\AssemblyDocumentFactory\DocumentInfoCreateException;
+use SpiritOfWars\DocMVC\Exception\Assembly\DocumentInfoBuilder\DocumentInfoBuilderExceptionInterface;
 
 class DocumentAssemblyFactory
 {

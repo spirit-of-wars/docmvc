@@ -1,8 +1,8 @@
 <?php
 
-namespace DocMVC\Exception\FileOperations;
+namespace SpiritOfWars\DocMVC\Exception\FileOperations;
 
-use DocMVC\Exception\RuntimeException;
+use SpiritOfWars\DocMVC\Exception\RuntimeException;
 
 class FileOperationException extends RuntimeException implements FileOperationsExceptionInterface
 {

@@ -1,13 +1,13 @@
 <?php
 
-namespace DocMVC\Test\DocumentManager;
+namespace SpiritOfWars\DocMVC\Test\DocumentManager;
 
-use DocMVC\Assembly\DocumentAssemblyFactory;
-use DocMVC\DocumentManager\AssembledDocumentProcessor;
-use DocMVC\DocumentManager\AssembledDocumentProcessorConfig;
-use DocMVC\Exception\FileOperations\DirectoryPermissionException;
-use DocMVC\Exception\FileOperations\FileNotExistedException;
-use DocMVC\Test\Data\CartridgeTestFactory;
+use SpiritOfWars\DocMVC\Assembly\DocumentAssemblyFactory;
+use SpiritOfWars\DocMVC\DocumentManager\AssembledDocumentProcessor;
+use SpiritOfWars\DocMVC\DocumentManager\AssembledDocumentProcessorConfig;
+use SpiritOfWars\DocMVC\Exception\FileOperations\DirectoryPermissionException;
+use SpiritOfWars\DocMVC\Exception\FileOperations\FileNotExistedException;
+use SpiritOfWars\DocMVC\Test\Data\CartridgeTestFactory;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\NullLogger;
 

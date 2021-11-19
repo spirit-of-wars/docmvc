@@ -1,7 +1,7 @@
 <?php
-namespace DocMVC\Assembly\AssemblyResult;
+namespace SpiritOfWars\DocMVC\Assembly\AssemblyResult;
 
-use DocMVC\Exception\Assembly\AssemblyDocument\DownloadDocumentException;
+use SpiritOfWars\DocMVC\Exception\Assembly\AssemblyDocument\DownloadDocumentException;
 
 class PdfAssemblyResult extends AbstractDocumentAssemblyResult
 {

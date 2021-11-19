@@ -1,6 +1,6 @@
 <?php
 
-namespace DocMVC\Assembly\Info;
+namespace SpiritOfWars\DocMVC\Assembly\Info;
 
 class DocumentInfo
 {

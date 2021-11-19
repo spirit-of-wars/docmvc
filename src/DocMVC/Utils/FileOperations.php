@@ -1,11 +1,11 @@
 <?php
 
-namespace DocMVC\Utils;
+namespace SpiritOfWars\DocMVC\Utils;
 
-use DocMVC\Exception\FileOperations\DirectoryPermissionException;
-use DocMVC\Exception\FileOperations\FileNotExistedException;
-use DocMVC\Exception\FileOperations\FileOperationException;
-use DocMVC\Exception\FileOperations\FileOperationsExceptionInterface;
+use SpiritOfWars\DocMVC\Exception\FileOperations\DirectoryPermissionException;
+use SpiritOfWars\DocMVC\Exception\FileOperations\FileNotExistedException;
+use SpiritOfWars\DocMVC\Exception\FileOperations\FileOperationException;
+use SpiritOfWars\DocMVC\Exception\FileOperations\FileOperationsExceptionInterface;
 
 class FileOperations
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace DocMVC\Assembly\AssemblyResult;
+namespace SpiritOfWars\DocMVC\Assembly\AssemblyResult;
 
-use DocMVC\Exception\Assembly\AssemblyDocument\DownloadDocumentException;
-use DocMVC\Exception\FileOperations\FileOperationException;
-use DocMVC\Utils\FileOperations;
+use SpiritOfWars\DocMVC\Exception\Assembly\AssemblyDocument\DownloadDocumentException;
+use SpiritOfWars\DocMVC\Exception\FileOperations\FileOperationException;
+use SpiritOfWars\DocMVC\Utils\FileOperations;
 
 class DocAssemblyResult extends AbstractDocumentAssemblyResult
 {

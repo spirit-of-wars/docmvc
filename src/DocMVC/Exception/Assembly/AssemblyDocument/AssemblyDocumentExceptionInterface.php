@@ -1,8 +1,8 @@
 <?php
 
-namespace DocMVC\Exception\Assembly\AssemblyDocument;
+namespace SpiritOfWars\DocMVC\Exception\Assembly\AssemblyDocument;
 
-use DocMVC\Exception\ExceptionInterface;
+use SpiritOfWars\DocMVC\Exception\ExceptionInterface;
 
 interface AssemblyDocumentExceptionInterface extends ExceptionInterface
 {

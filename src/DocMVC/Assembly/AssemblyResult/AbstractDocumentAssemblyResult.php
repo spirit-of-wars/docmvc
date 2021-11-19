@@ -1,8 +1,8 @@
 <?php
 
-namespace DocMVC\Assembly\AssemblyResult;
+namespace SpiritOfWars\DocMVC\Assembly\AssemblyResult;
 
-use DocMVC\Assembly\Info\DocumentInfo;
+use SpiritOfWars\DocMVC\Assembly\Info\DocumentInfo;
 
 abstract class AbstractDocumentAssemblyResult implements DocumentAssemblyResultInterface
 {

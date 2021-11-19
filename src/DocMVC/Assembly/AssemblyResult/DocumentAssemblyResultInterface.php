@@ -1,8 +1,8 @@
 <?php
 
-namespace DocMVC\Assembly\AssemblyResult;
+namespace SpiritOfWars\DocMVC\Assembly\AssemblyResult;
 
-use DocMVC\Exception\Assembly\AssemblyDocument\AssemblyDocumentExceptionInterface;
+use SpiritOfWars\DocMVC\Exception\Assembly\AssemblyDocument\AssemblyDocumentExceptionInterface;
 
 interface DocumentAssemblyResultInterface
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace DocMVC\Test\Data;
+namespace SpiritOfWars\DocMVC\Test\Data;
 
-use DocMVC\Cartridge\SetupCartridgeInterface;
+use SpiritOfWars\DocMVC\Cartridge\SetupCartridgeInterface;
 
 class CartridgeTestFactory
 {
@@ -22,7 +22,7 @@ class CartridgeTestFactory
 
     /**
      * @param array $params
-     * @return \DocMVC\sample\test\Doc
+     * @return \SpiritOfWars\DocMVC\sample\test\Doc
      */
     public static function createTestDocCartridge($params = [])
     {
@@ -31,24 +31,24 @@ class CartridgeTestFactory
         ];
         $resultParams = array_merge($defaultParams, $params);
 
-        return new \DocMVC\sample\test\Doc($resultParams);
+        return new \SpiritOfWars\DocMVC\sample\test\Doc($resultParams);
     }
 
     /**
      * @param array $params
-     * @return \DocMVC\sample\residentrfact\Excel
+     * @return \SpiritOfWars\DocMVC\sample\residentrfact\Excel
      */
     public static function createTestExcelCartridge($params = [])
     {
-        return new \DocMVC\sample\residentrfact\Excel($params);
+        return new \SpiritOfWars\DocMVC\sample\residentrfact\Excel($params);
     }
 
     /**
      * @param array $params
-     * @return \DocMVC\sample\residentrfact\Pdf
+     * @return \SpiritOfWars\DocMVC\sample\residentrfact\Pdf
      */
     public static function createTestPdfCartridge($params = [])
     {
-        return new \DocMVC\sample\residentrfact\Pdf($params);
+        return new \SpiritOfWars\DocMVC\sample\residentrfact\Pdf($params);
     }
 }

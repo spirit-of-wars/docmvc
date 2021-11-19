@@ -1,10 +1,10 @@
 <?php
 
-namespace DocMVC\Assembly\Info;
+namespace SpiritOfWars\DocMVC\Assembly\Info;
 
-use DocMVC\Exception\Assembly\AssemblyDocumentFactory\AssemblyDocumentCreateException;
-use DocMVC\Exception\Assembly\DocumentInfoBuilder\DocumentInfoBuilderExceptionInterface;
-use DocMVC\Exception\Assembly\DocumentInfoBuilder\InitExtException;
+use SpiritOfWars\DocMVC\Exception\Assembly\AssemblyDocumentFactory\AssemblyDocumentCreateException;
+use SpiritOfWars\DocMVC\Exception\Assembly\DocumentInfoBuilder\DocumentInfoBuilderExceptionInterface;
+use SpiritOfWars\DocMVC\Exception\Assembly\DocumentInfoBuilder\InitExtException;
 
 interface DocumentInfoBuilderInterface
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace DocMVC\DocumentManager;
+namespace SpiritOfWars\DocMVC\DocumentManager;
 
 class AssembledDocumentProcessorConfig
 {

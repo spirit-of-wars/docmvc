@@ -1,8 +1,8 @@
 <?php
 
-namespace DocMVC\Exception\Assembly\DocumentInfoBuilder;
+namespace SpiritOfWars\DocMVC\Exception\Assembly\DocumentInfoBuilder;
 
-use DocMVC\Exception\LogicException;
+use SpiritOfWars\DocMVC\Exception\LogicException;
 
 class InitExtException extends LogicException implements DocumentInfoBuilderExceptionInterface
 {

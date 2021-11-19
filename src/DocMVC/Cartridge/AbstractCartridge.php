@@ -1,6 +1,6 @@
 <?php
 
-namespace DocMVC\Cartridge;
+namespace SpiritOfWars\DocMVC\Cartridge;
 
 abstract class AbstractCartridge implements SetupCartridgeInterface
 {

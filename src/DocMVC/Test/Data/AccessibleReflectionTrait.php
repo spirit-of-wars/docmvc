@@ -1,6 +1,6 @@
 <?php
 
-namespace DocMVC\Test\Data;
+namespace SpiritOfWars\DocMVC\Test\Data;
 
 trait AccessibleReflectionTrait
 {

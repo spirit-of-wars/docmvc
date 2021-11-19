@@ -1,19 +1,19 @@
 <?php
 
-namespace DocMVC\Test\Assembly;
+namespace SpiritOfWars\DocMVC\Test\Assembly;
 
-use DocMVC\Assembly\DocAssembly;
-use DocMVC\Assembly\DocumentAssemblyFactory;
-use DocMVC\Assembly\DocumentAssemblyInterface;
-use DocMVC\Assembly\ExcelAssembly;
-use DocMVC\Assembly\PdfAssembly;
-use DocMVC\Cartridge\CartridgeInterface;
-use DocMVC\Cartridge\PdfCartridge;
-use DocMVC\Cartridge\SetupCartridgeInterface;
-use DocMVC\Exception\Assembly\AssemblyDocumentFactory\AssemblyDocumentCreateException;
-use DocMVC\Exception\Assembly\AssemblyDocumentFactory\DocumentInfoCreateException;
-use DocMVC\Exception\LogicException;
-use DocMVC\Test\Data\CartridgeTestFactory;
+use SpiritOfWars\DocMVC\Assembly\DocAssembly;
+use SpiritOfWars\DocMVC\Assembly\DocumentAssemblyFactory;
+use SpiritOfWars\DocMVC\Assembly\DocumentAssemblyInterface;
+use SpiritOfWars\DocMVC\Assembly\ExcelAssembly;
+use SpiritOfWars\DocMVC\Assembly\PdfAssembly;
+use SpiritOfWars\DocMVC\Cartridge\CartridgeInterface;
+use SpiritOfWars\DocMVC\Cartridge\PdfCartridge;
+use SpiritOfWars\DocMVC\Cartridge\SetupCartridgeInterface;
+use SpiritOfWars\DocMVC\Exception\Assembly\AssemblyDocumentFactory\AssemblyDocumentCreateException;
+use SpiritOfWars\DocMVC\Exception\Assembly\AssemblyDocumentFactory\DocumentInfoCreateException;
+use SpiritOfWars\DocMVC\Exception\LogicException;
+use SpiritOfWars\DocMVC\Test\Data\CartridgeTestFactory;
 use PHPUnit\Framework\TestCase;
 
 class DocumentAssemblyFactoryTest extends TestCase
