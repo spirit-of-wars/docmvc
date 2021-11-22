@@ -1,17 +1,11 @@
 <?php
 
-namespace DocMVC\sample\test;
+namespace sample\test;
 
-use \DocMVC\Doc as PDoc;
+use SpiritOfWars\DocMVC\Cartridge\DocCartridge;
 
-class Doc extends PDoc
+class Doc extends DocCartridge
 {
-
-    public function setupTemplate()
-    {
-        return null;
-    }
-
     public function setupView()
     {
         return 'doc/view.php';
@@ -19,8 +13,8 @@ class Doc extends PDoc
 
     public function setupModel()
     {
-        $test = $this->params['test']; // required param
-        $randParam = $this->params['test2'];
+        $test = $this->getParams()['test']; // required param
+        $randParam = $this->getParams();
         return [
             'test' => $test,
             'randParam' => $randParam
@@ -32,7 +26,7 @@ class Doc extends PDoc
         return ['test'];
     }
 
-    public function setupDocName()
+    public function setupDocumentName()
     {
         return 'test-name';
     }

@@ -1,18 +1,13 @@
 <?php
-namespace DocMVC\sample\residentrfact;
+namespace sample\residentrfact;
 
-use \DocMVC\PDF as PPdf;
+use SpiritOfWars\DocMVC\Cartridge\PdfCartridge;
 
-class PDF extends PPdf
+class Pdf extends PdfCartridge
 {
     protected $viewName = 'pdf/act_2016.php';
 
-    protected function setupTemplate()
-    {
-        return null;
-    }
-
-    protected function setupModel()
+    public function setupModel()
     {
         $data = [
             'contract' => 'R96000',
@@ -28,7 +23,7 @@ class PDF extends PPdf
         $dt1 = '01.01.2018';
         $dt2 = '01.07.2018';
 
-        $this->chosenParams['contract'] = $data['contract'];
+        $this->commonData['contract'] = $data['contract'];
 
         return [
             'data' => $data,
@@ -38,19 +33,15 @@ class PDF extends PPdf
         ];
     }
 
-    protected function setupView()
+    public function setupView()
     {
         return $this->viewName;
     }
 
-    protected function setupRequiredParams()
+    public function setupDocumentName()
     {
-        return [];
-    }
-
-    protected function setupDocName()
-    {
-        $contract = $this->chosenParams['contract'];
+//        $contract = 345643;
+        $contract = $this->commonData['contract'];
         return implode('_', ['act', $contract, '2008', '23']);
     }
 }

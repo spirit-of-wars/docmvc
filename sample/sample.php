@@ -1,19 +1,26 @@
 <?php
 
-namespace docMVC\sample;
+use sample\residentrfact\Excel;
+use sample\residentrfact\Pdf;
+use sample\test\Doc;
+use SpiritOfWars\DocMVC\DocumentManager;
 
-$testDoc = new test\Doc([
+require_once 'vendor/autoload.php';
+
+$testDoc = new Doc([
     'test' => 'test content',
     'randParam' => 'random param'
 ]);
 
-$testDoc->download();
+$fileManager = new DocumentManager($testDoc);
+
+$fileManager->build()->download();
+
+$excelReport = new Excel();
+
+//$fileManager->load($excelReport)->rewritableModeOn()->build()->saveToDir('C:\test-document')->download();
 
 
-$excelReport = new headerlistreport\excel();
+$pdfReport = new Pdf();
 
-$excelReport->download();
-
-$pdfAct = new residentrfact\PDF();
-
-$pdfAct->download();
+//$fileManager->load($pdfReport)->rewritableModeOn()->build()->saveToDir('C:\test-document')->download();

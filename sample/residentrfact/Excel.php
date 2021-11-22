@@ -1,14 +1,14 @@
 <?php
-namespace DocMVC\sample\residentrfact;
+namespace sample\residentrfact;
 
-use \DocMVC\Excel as PExcel;
+use SpiritOfWars\DocMVC\Cartridge\ExcelCartridge;
 
-class Excel extends PExcel
+class Excel extends ExcelCartridge
 {
     protected $viewName = 'excel/view.php';
     protected $tmpName = 'excel/act_2016.xlsx';
 
-    protected function setupModel()
+    public function setupModel()
     {
         $data = [
             'contract' => 'R96000',
@@ -24,7 +24,7 @@ class Excel extends PExcel
         $dt1 = '01.01.2018';
         $dt2 = '01.07.2018';
 
-        $this->chosenParams['contract'] = $data['contract'];
+        $this->commonData['contract'] = $data['contract'];
 
         return [
             'data' => $data,
@@ -34,24 +34,19 @@ class Excel extends PExcel
         ];
     }
 
-    protected function setupView()
+    public function setupView()
     {
         return $this->viewName;
     }
 
-    protected function setupTemplate()
+    public function setupTemplate()
     {
         return $this->tmpName;
     }
 
-    protected function setupRequiredParams()
+    public function setupDocumentName()
     {
-        return [];
-    }
-
-    protected function setupDocName()
-    {
-        $contract = $this->chosenParams['contract'];
+        $contract = $this->commonData['contract'];
         return implode('_', ['act', $contract, '2008', '23']);
     }
 }

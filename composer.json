@@ -3,7 +3,7 @@
   "type": "library",
   "description": "DocMVC, MVC-library for generating files (excel, doc, pdf)",
   "keywords": ["excel","doc","files","pdf", "download"],
-  "license": "LGPL-3.0-or-later",
+  "license": "LGPL-2.1-or-later",
   "minimum-stability": "stable",
   "authors": [
     {
@@ -11,17 +11,19 @@
     }
   ],
   "require": {
-    "php": ">=5.4.0",
-    "dompdf/dompdf": "v0.8.2",
-    "phpoffice/phpspreadsheet": "1.5.2",
-    "phpoffice/phpword": "0.15.0"
+    "php": "^7.2 || ^8.0",
+    "dompdf/dompdf": "v1.0.2",
+    "phpoffice/phpspreadsheet": "1.18.0",
+    "phpoffice/phpword": "0.18.2",
+    "psr/log": "^1.0"
   },
-  "classmap": [
-    "src/"
-  ],
+  "require-dev": {
+    "phpunit/phpunit": "^9.5"
+  },
   "autoload": {
     "psr-4": {
-      "DocMVC\\": "src/DocMVC"
-    }
+      "SpiritOfWars\\DocMVC\\": "src/DocMVC/"
+    },
+    "classmap": ["sample", "Test"]
   }
 }
