@@ -1,4 +1,8 @@
 <?php
+/**
+ * @var $driver
+ * @var array $model
+ */
 $objPHPExcel = $driver;
 
 $data = $model['data'];
