@@ -1,71 +1,75 @@
-Библиотека предназначена для работы с файлами PDF, Excel, Word.
-Представляет собой микро-фреймворк в mvc-модели
+The library is designed to work with files PDF, Excel, Word.
+This one is micro framework about mvc-model
 
-**Общие положения:**
-- Работа осуществляется путем вызова DocumentManager и загрузкой в него класса-картриджа.
-- Работа с данными, настройка всех путей, обязательных параметров - происходит только в классе-картридже
-- Представление (view) - это php скрипт, в котором вручную прописана логика рендера документа.
-- Для генерации view логики используются сторонние библиотеки. Объект процессоров этих библиотек доступен во 
- view-файле через переменную $driver  
-       - документы Doc/Docx - phpoffice/phpword  
-       - документы Excel - phpoffice/phpspreadsheet  
-       - документы Pdf - dompdf/dompdf
-- Шаблон (template) - это документ-заготовка, в которых еще нет нужных данных но они подставляются в процессе генерации. Такие 
-данные определяются только в модели. (Пример: Для генерации excel документа мы создали заготовку template.xlsx и внутри 
-в фигурных скобках указываем переменные от куда брать значения)
+**General provisions:**
+- To get started you need create instance DocumentManager then download class-cartridge for him
+- Working with data, customizing paths and required parameters must be done only in class-cartridge
+- There are two ways to generate a document: render document from scratch (using view), render document from existed document (template)
+- Document rendering logic must be written only in the view file (view)
+- External dependencies are used to generate view-logic. The processors object of these libraries is available in
+view file via a variable $driver  
+       - Doc/Docx - phpoffice/phpword  
+       - Excel - phpoffice/phpspreadsheet  
+       - Pdf - dompdf/dompdf
+- Template is a blank document that does not yet contain the necessary data, but they will be substituted by the
+generation process. Such data is defined only in the model. (Example: To generate an excel document, we created a 
+template.xlsx blank then inside in curly brackets we specify variables from where to take values)
 
 
-**Для начала работы необходимо:**
-1) Создать общую директорию в которой все будет хранится. Я использую директорию с именем document
-2) В ней создать директорию с произвольным именем. Тут каждая директория отвечает за свой документ.
-3) В этой директории создаем классы-картриджи. 
-Например мне нужно сделать документ финансового отчета в форматах doc и pdf.
-В директории Document/ я создам папку Report/
-В ней создам файлы Doc.php (наследуемся от SpiritOfWars\DocMVC\Cartridge\DocCartridge) и Pdf.php (SpiritOfWars\DocMVC\Cartridge\PdfCartridge)
-4) В каждом файле есть 1 абстрактный метод, который обязательно нужно определить:
-    - setupView - должен вернуть строку, содержащую путь и имя вью-файла. _НЕ МОЖЕТ БЫТЬ ПУСТЫМ!_ Вью-файл обязательно 
-должен быть создан и указан путь к нему.
-   И три опциональных метода:
-    - setupModel - должен вернуть массив данных которые будут использоваться во вью файле либо при подстановке данных в шаблон
-    - setupTemplate - должен вернуть строку, содержащую путь и имя шаблона. (Не доступен для Pdf-картриджей)
-    - setupRequiredParams - должен вернуть массив обязательных параметров, которые должны быть переданы в конструктор класса.
+**To get started you need:**
+1) Create a shared directory where everything will be stored. I am using a directory called 'document'
+2) Inside this one you need create one more directory (arbitrary name). Now each such directory will be responsible for 
+its own document.
+3) In this directory you need to create classes-cartridges.
+For example, I need to make a financial report document in doc and pdf formats.
+For this i will create directory Report/ in the directory Document/
+In the Document/ directory i will create two files: Doc.php (extended from SpiritOfWars\DocMVC\Cartridge\DocCartridge) 
+and Pdf.php (SpiritOfWars\DocMVC\Cartridge\PdfCartridge)
+4) Each cartridge have 1 abstract method, that must be defined:
+    - setupView - must be return string, that contains name and path from view-file. _CANNOT BE EMPTY!_ View file required
+must be created and the path to it must be specified
+   Also each cartridge have 3 optional methods:
+    - setupModel - must be return array data. This data will be use in view-file or filling template variables
+    - setupTemplate - must be return string, that contains name and path from template-file. (To pdf-cartridge is not available)
+    - setupRequiredParams - must be return array of required params, that you want to pass to constructor.
      Указываем только те параметры, без которых генерация документа невозможна. Если таких нет, не трогаем этот метод
-5) Создаем директорию view (в нашем примере Document/Report/view/)
-6) Создаем view-файл с любым именем (в нашем примере для pdf документа можно создать такой файл Document/Report/view/view-pdf.php)
-7) Указываем в файле класса путь до вью-файла в методе setupView (в нашем случае: return 'view-pdf.php';).
-ВАЖНО! Указываем не полный путь, а относительный от папки view.
-8) Если есть шаблон, повторяем пункты 6,7,8 для шаблона. Создаваемая папка обязательна должна называться template. 
-Путь до шаблона возвращаем методом setupTemplate. ВАЖНО! Указываем не полный путь, а относительный от папки template.
-9) Во вью файле мы либо прописываем html верстку, либо выполняем php код по генерации контента. По-умолчанию доступны 
-две переменные $driver - объект для работы с генерацией контента документа, $model - массив с данными, которые вы указали 
-в методе setupModel
-10) В нужном месте вашего кода создаем экземпляр нашего созданного класса, в конструктор передаем массив параметров,
-который будет доступен через свойство $this->params (в нашем примере $docObj = new(\Document\Report\Doc(['testKey' => 'testValue'])))
-11) Создаем документ менеджер: new SpiritOfWars\DocMVC\DocumentManager($docObj) . Вторым аргументом можно передать объект логгера
-12) Собираем документ $docObj->build();
-13) Теперь документ можно сохранить в какую-то конкретную папку, либо скачать: методы saveAs(), download()
+5) Create directory view/ (in my example: Document/Report/view/)
+6) Create view-файл with any name (in my example: i created Document/Report/view/view-pdf.php to pdf document)
+7) Set path to view-file in the cartridges method setupView (in my example: return 'view-pdf.php';).
+Caution! Path must be relative.
+8) If you need generating by template, just repeat steps 6,7,8 for template names. Directory for created must be named template/. 
+Set path to template-document in the cartridges method setupTemplate. Caution! Path must be relative.
+9) The view file is intended for html layout, or its generation by $driver variable. Available by default
+two variables $driver - an object to work with the generation of document content, $model - an array with the data you 
+specified in method setupModel
+10) In the right place in your code, we create an instance of our created cartridge, pass an array of parameters to the constructor,
+which will be available through the property $this->params (in my example $docObj = new(\Document\Report\Doc(['testKey' => 'testValue'])))
+11) Create instance of DocumentManager: new SpiritOfWars\DocMVC\DocumentManager($docObj) . Optional: logger object can 
+be passed as second parameter
+12) Build document $docObj->build();
+13) Now the generated document available for download or saving to directory. Methods: saveAs(), download()
 
 
 **Несколько общих замечаний:**
 
- - У pdf-документов не поддерживаются шаблоны
- - Во время скачивания документа следите чтобы ничего не выводилось на страницу. Т.к. все лишнее, что выводится 
- на странице, тоже окажется в нашем документе. А это неизбежно приведет к его нечитаемости.
- - По умолчанию имя скачиваемого документа будет вида timestamp().{extension}. Чтобы поменять его, 
- переопределите метод setupDocName(). Имя не должно содержать расширения файла.
- - Каждый класс имеет свое расширение документа по-умолчанию. Вы можете его изменить, переопределив метод setupFileExt.
- Однако расширение которое вы в нем укажете должно попадать в список разрешенных (метод allowedExt)
- - В папке /sample/ лежат примеры работы с документами
- - Если нужно пробрасывать данные из метода в метод, можно использовать свойство $this->commonData
+ - Templates are not available for pdf documents
+ - While downloading the document, make sure that nothing extra is displayed on the page. Because all this will also be
+generated document. Which can even lead to its unreadability
+ - By default, the name of the downloaded document will be of the form timestamp().{extension}. You need override method 
+ setupDocName() to change name. The name must not contain a file extension.
+ - Each class has its own default document extension. You can change it by overriding method setupFileExt.
+ However, the extension you specify in it must be on the list of allowed (method allowedExt)
+ - The /sample/ folder contains examples of working with documents
+ - If you need to pass data from a method to a method, you can use the $this->commonData property
  
  
- **Пример кода:**
- Генерируем docx документ для скачивания.
+ **Code Examples:**
+ Generating docx-document for download
  
  ```php
  <?php
  
- // файл класса Doc.php, лежит в директории document/test/Doc.php
+ // class-cartridge Doc.php, is in the directory document/test/Doc.php
  
  use SpiritOfWars\DocMVC\Cartridge\DocCartridge;
  
@@ -97,10 +101,10 @@
          return 'test-name';
      }
  }
- // конец файла
+ //end of the file
  
  
- // вью-файл view.php лежит в директории document/test/view/view.php
+ // view-file view.php is in the directory document/test/view/view.php
  
  $PHPWord = $driver;
  $data = $model;
@@ -125,10 +129,10 @@
  $textrun->addText($data['test']);
  $textrun->addText($data['randParam']);
  
- //конец файла
+ //end of the file
  
  
- // создаем экземпляр класса, передаем параметры и скачиваем файл
+ // creating instance of class, passing params for it then download result document
  
  $testDoc = new Doc([
     'test' => 'test content',
