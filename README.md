@@ -32,7 +32,8 @@ must be created and the path to it must be specified
     - setupModel - must be return array data. This data will be use in view-file or filling template variables
     - setupTemplate - must be return string, that contains name and path from template-file. (To pdf-cartridge is not available)
     - setupRequiredParams - must be return array of required params, that you want to pass to constructor.
-     Указываем только те параметры, без которых генерация документа невозможна. Если таких нет, не трогаем этот метод
+     We specify only those parameters, without which the generation of the document is impossible. If there are none, 
+do not touch this method
 5) Create directory view/ (in my example: Document/Report/view/)
 6) Create view-файл with any name (in my example: i created Document/Report/view/view-pdf.php to pdf document)
 7) Set path to view-file in the cartridges method setupView (in my example: return 'view-pdf.php';).
