@@ -35,7 +35,7 @@ class DocumentAssemblyFactory
         $className = self::getAssemblyDocumentClassByCartridge($cartridge);
         $documentInfo = self::createDocumentInfo($cartridge);
 
-        return new $className($documentInfo, $cartridge->getParams());
+        return new $className($documentInfo);
     }
 
     /**
