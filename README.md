@@ -35,7 +35,7 @@ must be created and the path to it must be specified
      We specify only those parameters, without which the generation of the document is impossible. If there are none, 
 do not touch this method
 5) Create directory view/ (in my example: Document/Report/view/)
-6) Create view-файл with any name (in my example: i created Document/Report/view/view-pdf.php to pdf document)
+6) Create view-file with any name (in my example: i created Document/Report/view/view-pdf.php to pdf document)
 7) Set path to view-file in the cartridges method setupView (in my example: return 'view-pdf.php';).
 Caution! Path must be relative.
 8) If you need generating by template, just repeat steps 6,7,8 for template names. Directory for created must be named template/. 
