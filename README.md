@@ -51,7 +51,7 @@ be passed as second parameter
 13) Now the generated document available for download or saving to directory. Methods: saveAs(), download()
 
 
-**Несколько общих замечаний:**
+**A few important notes:**
 
  - Templates are not available for pdf documents
  - While downloading the document, make sure that nothing extra is displayed on the page. Because all this will also be
