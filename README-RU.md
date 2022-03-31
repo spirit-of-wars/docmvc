@@ -63,12 +63,9 @@
  
  **Пример кода:**
  Генерируем docx документ для скачивания.
- 
+
+Класс-картридж Doc.php, лежит в директории document/test/Doc.php
  ```php
- <?php
- 
- // класс-картридж Doc.php, лежит в директории document/test/Doc.php
- 
  use SpiritOfWars\DocMVC\Cartridge\DocCartridge;
  
  class Doc extends DocCartridge
@@ -99,11 +96,11 @@
          return 'test-name';
      }
  }
- // конец файла
+```
  
  
- // вью-файл view.php лежит в директории document/test/view/view.php
- 
+Вью-файл view.php лежит в директории document/test/view/view.php
+ ```php
  $PHPWord = $driver;
  $data = $model;
  
@@ -126,12 +123,10 @@
  $textrun = $section->createTextRun('pRight');
  $textrun->addText($data['test']);
  $textrun->addText($data['randParam']);
+```
  
- //конец файла
- 
- 
- // создаем экземпляр класса, передаем параметры и скачиваем файл
- 
+Создаем экземпляр класса, передаем параметры и скачиваем файл
+ ```php
  $testDoc = new Doc([
     'test' => 'test content',
     'randParam' => 'random param'
@@ -140,3 +135,4 @@
  $documentManager = new DocumentManager($testDoc);
 
  $documentManager->build()->download();
+```

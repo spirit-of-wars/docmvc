@@ -67,11 +67,8 @@ generated document. Which can even lead to its unreadability
  **Code Examples:**
  Generating docx-document for download
  
- ```php
- <?php
- 
- // class-cartridge Doc.php, is in the directory document/test/Doc.php
- 
+Class-cartridge Doc.php, is in the directory document/test/Doc.php
+```php
  use SpiritOfWars\DocMVC\Cartridge\DocCartridge;
  
  class Doc extends DocCartridge
@@ -102,11 +99,11 @@ generated document. Which can even lead to its unreadability
          return 'test-name';
      }
  }
- //end of the file
+```
  
  
- // view-file view.php is in the directory document/test/view/view.php
- 
+View-file view.php is in the directory document/test/view/view.php
+```php
  $PHPWord = $driver;
  $data = $model;
  
@@ -129,12 +126,10 @@ generated document. Which can even lead to its unreadability
  $textrun = $section->createTextRun('pRight');
  $textrun->addText($data['test']);
  $textrun->addText($data['randParam']);
+```
  
- //end of the file
- 
- 
- // creating instance of class, passing params for it then download result document
- 
+Creating instance of class, passing params for it then download result document
+ ```php
  $testDoc = new Doc([
     'test' => 'test content',
     'randParam' => 'random param'
@@ -143,3 +138,4 @@ generated document. Which can even lead to its unreadability
  $documentManager = new DocumentManager($testDoc);
 
  $documentManager->build()->download();
+```
